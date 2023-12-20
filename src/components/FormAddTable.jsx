@@ -13,7 +13,7 @@ function FormAddTable({ onAddTab }) {
       >
         <div className="form-group">
           <label htmlFor="titre" className="mb-2">
-            Saisir un titre pour le tableau tâche
+            Saisir un titre
           </label>
           <input
             type="text"
@@ -23,7 +23,7 @@ function FormAddTable({ onAddTab }) {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <button className="btn btn-primary">Ajouter</button>
+        <button className="btn btn-primary">Ajouter un tableau</button>
       </form>
     </>
   )

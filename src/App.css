@@ -19,6 +19,7 @@
 
 .tableau-child {
   width: 260px;
+  height: 80%;
   border-radius: 5px;
   padding: 10px 0 10px 10px;
   background-color: #dfe1e6;

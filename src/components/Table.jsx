@@ -1,18 +1,19 @@
 import React from "react"
 import formPlus from "../assets/plus.svg"
+import Task from "./Task"
 
-function Table({ title }) {
+function Table({ table, listTasks }) {
   return (
     <>
       <div className="tableau-child">
-        <p>{title}</p>
-        <div className="tableau-btn">
-          <button>
-            <span className="tableau-image">
-              <img src={formPlus} alt="symbole plus" />
-            </span>
-            Ajouter une carte
-          </button>
+        <p>{table.title}</p>
+        <div>
+          {listTasks &&
+            listTasks.map((task) => {
+              if (table.id.toString() === task.tableId.toString()) {
+                return <Task titleTask={task.title} key={task.id} />
+              }
+            })}
         </div>
       </div>
     </>
