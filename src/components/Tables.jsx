@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import Table from "./Table"
 import FormAddTable from "./FormAddTable"
 import FormDeleteTable from "./FormDeleteTable"
+import { Link } from "react-router-dom"
 import { v4 as uuidv4 } from "uuid"
 import FormAddTask from "./FormAddTask"
 
@@ -29,6 +30,9 @@ function Tables() {
   }
   return (
     <>
+      <Link to="/" className="btn btn-primary">
+        Page d'accueil
+      </Link>
       <div className="container mx-auto my-4 w-80 d-flex align-items-start justify-content-center column-gap-5">
         <FormAddTable onAddTab={onAddTab} />
         <FormAddTask tables={titles} onAddTask={onAddTask} />
