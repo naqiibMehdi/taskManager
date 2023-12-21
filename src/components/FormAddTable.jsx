@@ -32,7 +32,15 @@ function FormAddTable({ onAddTab }) {
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
-            <button className="btn btn-primary">Ajouter</button>
+            <div className="d-flex gap-2">
+              <button className="btn btn-primary">Ajouter</button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => setDisplayForm(false)}
+              >
+                Annuler
+              </button>
+            </div>
           </form>
         ) : (
           <button
