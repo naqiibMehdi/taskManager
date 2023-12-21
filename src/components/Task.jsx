@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-function Task({ titleTask, onDeleteTask }) {
+function Task({ task, onDeleteTask }) {
   return (
     <div
       style={{
@@ -13,9 +13,13 @@ function Task({ titleTask, onDeleteTask }) {
         marginBlock: "10px",
         padding: "10px 5px",
       }}
+      draggable="true"
+      onDragStart={(e) => {
+        e.dataTransfer.setData("id_task", task.id)
+      }}
     >
       <p className="m-0" style={{ height: "auto" }}>
-        {titleTask}
+        {task.title}
       </p>
       <div>
         <button

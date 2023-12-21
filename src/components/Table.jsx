@@ -2,10 +2,17 @@ import React from "react"
 import formPlus from "../assets/plus.svg"
 import Task from "./Task"
 
-function Table({ table, listTasks, onDeleteTask }) {
+function Table({ table, listTasks, onDeleteTask, moveTask }) {
   return (
     <>
-      <div className="tableau-child">
+      <div
+        className="tableau-child"
+        onDrop={(e) => {
+          const idTask = e.dataTransfer.getData("id_task")
+          moveTask(idTask, table.id)
+        }}
+        onDragOver={(e) => e.preventDefault()}
+      >
         <p>{table.title}</p>
         <div>
           {listTasks &&
@@ -13,7 +20,7 @@ function Table({ table, listTasks, onDeleteTask }) {
               if (table.id.toString() === task.tableId.toString()) {
                 return (
                   <Task
-                    titleTask={task.title}
+                    task={task}
                     key={task.id}
                     onDeleteTask={() => onDeleteTask(task.id)}
                   />

@@ -36,6 +36,13 @@ function Tables() {
     const newTasks = [...tasks].filter((task) => task.id !== id)
     setTasks(newTasks)
   }
+
+  const moveTask = (idTaskdrop, idTableDrag) => {
+    const newTasks = [...tasks]
+    const indexTask = [...tasks].findIndex((t) => t.id === idTaskdrop)
+    newTasks[indexTask].tableId = idTableDrag
+    setTasks(newTasks)
+  }
   return (
     <>
       <Link to="/" className="btn btn-primary">
@@ -89,6 +96,7 @@ function Tables() {
               key={key}
               listTasks={tasks}
               onDeleteTask={onDeleteTask}
+              moveTask={moveTask}
             />
           )
         })}
