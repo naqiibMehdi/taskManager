@@ -1,12 +1,11 @@
-import React, { useState } from "react"
+import { useState } from "react"
 
-function FormAddTable({ onAddTab }) {
+function FormAddTable({ onAddTab, setDisplayAddFormTable }) {
   const [title, setTitle] = useState("")
-  const [displayForm, setDisplayForm] = useState(false)
   return (
     <>
-      <div className="row w-10">
-        {displayForm ? (
+      <div className="popup-overlay">
+        <div className="w-50 bg-white rounded p-3">
           <form
             className="w-100 p-0"
             onSubmit={(e) => {
@@ -17,7 +16,7 @@ function FormAddTable({ onAddTab }) {
               }
               onAddTab(title)
               setTitle("")
-              setDisplayForm(false)
+              setDisplayAddFormTable(false)
             }}
           >
             <div className="form-group">
@@ -36,20 +35,13 @@ function FormAddTable({ onAddTab }) {
               <button className="btn btn-primary">Ajouter</button>
               <button
                 className="btn btn-secondary"
-                onClick={() => setDisplayForm(false)}
+                onClick={() => setDisplayAddFormTable(false)}
               >
                 Annuler
               </button>
             </div>
           </form>
-        ) : (
-          <button
-            className="btn btn-primary mt-3"
-            onClick={() => setDisplayForm(true)}
-          >
-            Ajouter un tableau
-          </button>
-        )}
+        </div>
       </div>
     </>
   )
