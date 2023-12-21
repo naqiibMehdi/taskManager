@@ -2,7 +2,13 @@ import React from "react"
 import formPlus from "../assets/plus.svg"
 import Task from "./Task"
 
-function Table({ table, listTasks, onDeleteTask, moveTask }) {
+function Table({
+  table,
+  listTasks,
+  onDeleteTask,
+  moveTask,
+  setDisplayUpdateFormTask,
+}) {
   return (
     <>
       <div
@@ -23,6 +29,7 @@ function Table({ table, listTasks, onDeleteTask, moveTask }) {
                     task={task}
                     key={task.id}
                     onDeleteTask={() => onDeleteTask(task.id)}
+                    setDisplayUpdateFormTask={setDisplayUpdateFormTask}
                   />
                 )
               }

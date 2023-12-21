@@ -5,6 +5,7 @@ import FormDeleteTable from "./FormDeleteTable"
 import { Link } from "react-router-dom"
 import { v4 as uuidv4 } from "uuid"
 import FormAddTask from "./FormAddTask"
+import FormUpdateTask from "./FormUpdateTask"
 
 function Tables() {
   const [titles, setTitles] = useState([
@@ -18,6 +19,7 @@ function Tables() {
   const [displayAddFormTable, setDisplayAddFormTable] = useState(false)
   const [displayDeleteFormTable, setDisplayDeleteFormTable] = useState(false)
   const [displayAddFormTask, setDisplayAddFormTask] = useState(false)
+  const [displayUpdateFormTask, setDisplayUpdateFormTask] = useState(false)
 
   const onAddTab = (title) => {
     setTitles([...titles, { id: uuidv4(), title }])
@@ -56,17 +58,18 @@ function Tables() {
           Ajouter un tableau
         </button>
         <button
-          className="btn btn-success"
-          onClick={() => setDisplayAddFormTask(true)}
-        >
-          Ajouter une tâche
-        </button>
-        <button
           className="btn btn-danger"
           onClick={() => setDisplayDeleteFormTable(true)}
         >
           Supprimer un tableau
         </button>
+        <button
+          className="btn btn-success"
+          onClick={() => setDisplayAddFormTask(true)}
+        >
+          Ajouter une tâche
+        </button>
+
         {displayAddFormTable && (
           <FormAddTable
             onAddTab={onAddTab}
@@ -87,6 +90,9 @@ function Tables() {
             setDisplayDeleteFormTable={setDisplayDeleteFormTable}
           />
         )}
+        {displayUpdateFormTask && (
+          <FormUpdateTask setDisplayUpdateFormTask={setDisplayUpdateFormTask} />
+        )}
       </div>
       <div className="tableau">
         {titles.map((tableau, key) => {
@@ -97,6 +103,7 @@ function Tables() {
               listTasks={tasks}
               onDeleteTask={onDeleteTask}
               moveTask={moveTask}
+              setDisplayUpdateFormTask={setDisplayUpdateFormTask}
             />
           )
         })}

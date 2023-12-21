@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-function Task({ task, onDeleteTask }) {
+function Task({ task, onDeleteTask, setDisplayUpdateFormTask }) {
   return (
     <div
       style={{
@@ -12,11 +12,13 @@ function Task({ task, onDeleteTask }) {
         marginRight: "5px",
         marginBlock: "10px",
         padding: "10px 5px",
+        cursor: "pointer",
       }}
       draggable="true"
       onDragStart={(e) => {
         e.dataTransfer.setData("id_task", task.id)
       }}
+      onClick={() => setDisplayUpdateFormTask(true)}
     >
       <p className="m-0" style={{ height: "auto" }}>
         {task.title}
