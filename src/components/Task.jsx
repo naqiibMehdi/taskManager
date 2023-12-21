@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-function Task({ task, onDeleteTask, setDisplayUpdateFormTask }) {
+function Task({ task, onDeleteTask, setDisplayUpdateFormTask, idTaskToEdit }) {
   return (
     <div
       style={{
@@ -18,7 +18,10 @@ function Task({ task, onDeleteTask, setDisplayUpdateFormTask }) {
       onDragStart={(e) => {
         e.dataTransfer.setData("id_task", task.id)
       }}
-      onClick={() => setDisplayUpdateFormTask(true)}
+      onClick={() => {
+        idTaskToEdit(task.id)
+        setDisplayUpdateFormTask(true)
+      }}
     >
       <p className="m-0" style={{ height: "auto" }}>
         {task.title}

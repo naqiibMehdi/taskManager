@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function FormUpdateTask({ setDisplayUpdateFormTask, FormUpdateTask }) {
+function FormUpdateTask({ setDisplayUpdateFormTask, task, updateTask }) {
   const [titleTask, setTitleTask] = useState("")
   return (
     <>
@@ -10,7 +10,8 @@ function FormUpdateTask({ setDisplayUpdateFormTask, FormUpdateTask }) {
             className="w-100 p-0"
             onSubmit={(e) => {
               e.preventDefault()
-              FormUpdateTask(titleTask)
+              updateTask(titleTask, task.id)
+              setDisplayUpdateFormTask(false)
             }}
           >
             <div className="form-group">
@@ -21,7 +22,7 @@ function FormUpdateTask({ setDisplayUpdateFormTask, FormUpdateTask }) {
                 type="text"
                 className="form-control mb-2"
                 id="titre"
-                value={titleTask}
+                value={titleTask || task.title}
                 onChange={(e) => setTitleTask(e.target.value)}
               />
             </div>

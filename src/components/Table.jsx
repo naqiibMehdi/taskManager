@@ -8,6 +8,7 @@ function Table({
   onDeleteTask,
   moveTask,
   setDisplayUpdateFormTask,
+  idTaskToEdit,
 }) {
   return (
     <>
@@ -30,6 +31,7 @@ function Table({
                     key={task.id}
                     onDeleteTask={() => onDeleteTask(task.id)}
                     setDisplayUpdateFormTask={setDisplayUpdateFormTask}
+                    idTaskToEdit={idTaskToEdit}
                   />
                 )
               }

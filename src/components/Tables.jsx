@@ -20,6 +20,7 @@ function Tables() {
   const [displayDeleteFormTable, setDisplayDeleteFormTable] = useState(false)
   const [displayAddFormTask, setDisplayAddFormTask] = useState(false)
   const [displayUpdateFormTask, setDisplayUpdateFormTask] = useState(false)
+  const [getTask, setGetTask] = useState({})
 
   const onAddTab = (title) => {
     setTitles([...titles, { id: uuidv4(), title }])
@@ -45,6 +46,19 @@ function Tables() {
     newTasks[indexTask].tableId = idTableDrag
     setTasks(newTasks)
   }
+
+  const idTaskToEdit = (idTask) => {
+    const getTask = [...tasks].find((t) => t.id === idTask)
+    setGetTask(getTask)
+  }
+
+  const updateTask = (titleTask, idTask) => {
+    const newTasks = [...tasks]
+    const indextask = newTasks.findIndex((t) => t.id === idTask)
+    newTasks[indextask].title = titleTask
+    setTasks(newTasks)
+  }
+
   return (
     <>
       <Link to="/" className="btn btn-primary">
@@ -91,7 +105,11 @@ function Tables() {
           />
         )}
         {displayUpdateFormTask && (
-          <FormUpdateTask setDisplayUpdateFormTask={setDisplayUpdateFormTask} />
+          <FormUpdateTask
+            setDisplayUpdateFormTask={setDisplayUpdateFormTask}
+            task={getTask}
+            updateTask={updateTask}
+          />
         )}
       </div>
       <div className="tableau">
@@ -104,6 +122,7 @@ function Tables() {
               onDeleteTask={onDeleteTask}
               moveTask={moveTask}
               setDisplayUpdateFormTask={setDisplayUpdateFormTask}
+              idTaskToEdit={idTaskToEdit}
             />
           )
         })}
