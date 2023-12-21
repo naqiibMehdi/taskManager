@@ -28,6 +28,11 @@ function Tables() {
   const onAddTask = (titleTask, tableId) => {
     setTasks([...tasks, { id: uuidv4(), title: titleTask, tableId }])
   }
+
+  const onDeleteTask = (id) => {
+    const newTasks = [...tasks].filter((task) => task.id !== id)
+    setTasks(newTasks)
+  }
   return (
     <>
       <Link to="/" className="btn btn-primary">
@@ -40,7 +45,14 @@ function Tables() {
       </div>
       <div className="tableau">
         {titles.map((tableau, key) => {
-          return <Table table={tableau} key={key} listTasks={tasks} />
+          return (
+            <Table
+              table={tableau}
+              key={key}
+              listTasks={tasks}
+              onDeleteTask={onDeleteTask}
+            />
+          )
         })}
       </div>
     </>

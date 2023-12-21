@@ -1,7 +1,6 @@
 import React, { useState } from "react"
-import formPlus from "../assets/plus.svg"
 
-function Task({ titleTask }) {
+function Task({ titleTask, onDeleteTask }) {
   return (
     <div
       style={{
@@ -25,6 +24,7 @@ function Task({ titleTask }) {
             backgroundColor: "transparent",
             fontSize: "18px",
           }}
+          onClick={onDeleteTask}
         >
           &#9747;
         </button>

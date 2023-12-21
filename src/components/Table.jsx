@@ -2,7 +2,7 @@ import React from "react"
 import formPlus from "../assets/plus.svg"
 import Task from "./Task"
 
-function Table({ table, listTasks }) {
+function Table({ table, listTasks, onDeleteTask }) {
   return (
     <>
       <div className="tableau-child">
@@ -11,7 +11,13 @@ function Table({ table, listTasks }) {
           {listTasks &&
             listTasks.map((task) => {
               if (table.id.toString() === task.tableId.toString()) {
-                return <Task titleTask={task.title} key={task.id} />
+                return (
+                  <Task
+                    titleTask={task.title}
+                    key={task.id}
+                    onDeleteTask={() => onDeleteTask(task.id)}
+                  />
+                )
               }
             })}
         </div>
