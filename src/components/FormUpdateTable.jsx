@@ -16,7 +16,7 @@ function FormUpdateTable({ setDisplayFormUpdateTable, getTable, updateTable }) {
           >
             <div className="form-group">
               <label htmlFor="titre" className="mb-2">
-                Tâche
+                Edition du titre de la Table
               </label>
               <input
                 type="text"
