@@ -10,14 +10,27 @@ function Table({
   setDisplayFormUpdateTable,
   idTaskToEdit,
   updateTitleTable,
+  moveTable,
 }) {
   return (
     <>
       <div
         className="tableau-child"
+        draggable="true"
+        onDragStart={(e) => {
+          e.dataTransfer.setData("order", table.order)
+          e.dataTransfer.setData("id_table", table.id)
+        }}
         onDrop={(e) => {
+          const idTable_drag = e.dataTransfer.getData("id_table")
+          const order_table_drag = e.dataTransfer.getData("order")
           const idTask = e.dataTransfer.getData("id_task")
-          moveTask(idTask, table.id)
+          if (idTask) {
+            moveTask(idTask, table.id)
+            return
+          } else if (idTable_drag) {
+            moveTable(idTable_drag, table.id, order_table_drag, table.order)
+          }
         }}
         onDragOver={(e) => e.preventDefault()}
       >

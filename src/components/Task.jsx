@@ -16,6 +16,7 @@ function Task({ task, onDeleteTask, setDisplayUpdateFormTask, idTaskToEdit }) {
       }}
       draggable="true"
       onDragStart={(e) => {
+        e.stopPropagation()
         e.dataTransfer.setData("id_task", task.id)
       }}
       onClick={() => {
@@ -26,14 +27,19 @@ function Task({ task, onDeleteTask, setDisplayUpdateFormTask, idTaskToEdit }) {
       <p className="m-0" style={{ maxWidth: "80%", wordWrap: "break-word" }}>
         {task.title}
       </p>
-      <div>
+      <div
+        onClick={(e) => {
+          e.stopPropagation()
+          onDeleteTask()
+        }}
+        style={{ width: "20px", display: "flex", justifyContent: "center" }}
+      >
         <button
           style={{
             border: "none",
             backgroundColor: "transparent",
             fontSize: "18px",
           }}
-          onClick={onDeleteTask}
         >
           &#9747;
         </button>

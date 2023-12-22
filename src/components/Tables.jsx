@@ -10,10 +10,10 @@ import FormUpdateTable from "./FormUpdateTable"
 
 function Tables() {
   const [titles, setTitles] = useState([
-    { id: 1, title: "projet ressource" },
-    { id: 2, title: "Sujet de la prochaine réunion" },
-    { id: 3, title: "a faire" },
-    { id: 4, title: "en cours" },
+    { id: 1, title: "projet ressource", order: 1 },
+    { id: 2, title: "Sujet de la prochaine réunion", order: 2 },
+    { id: 3, title: "a faire", order: 3 },
+    { id: 4, title: "en cours", order: 4 },
   ])
 
   const [tasks, setTasks] = useState([])
@@ -26,7 +26,7 @@ function Tables() {
   const [getTable, setGetTable] = useState({})
 
   const onAddTab = (title) => {
-    setTitles([...titles, { id: uuidv4(), title }])
+    setTitles([...titles, { id: uuidv4(), title, order: titles.length + 1 }])
   }
 
   const deleteTable = (idTable) => {
@@ -45,7 +45,7 @@ function Tables() {
 
   const moveTask = (idTaskdrop, idTableDrag) => {
     const newTasks = [...tasks]
-    const indexTask = [...tasks].findIndex((t) => t.id === idTaskdrop)
+    const indexTask = newTasks.findIndex((t) => t.id === idTaskdrop)
     newTasks[indexTask].tableId = idTableDrag
     setTasks(newTasks)
   }
@@ -72,6 +72,31 @@ function Tables() {
     const indexTable = newTables.findIndex((t) => t.id === idTable)
     newTables[indexTable].title = titleTable
     setTitles(newTables)
+  }
+
+  const moveTable = (idDrag, idDrop, orderDrag, orderDrop) => {
+    const tablesDragDrop = [...titles]
+    const tab = []
+
+    for (let el of tablesDragDrop) {
+      if (orderDrag < orderDrop) {
+        if (el.id.toString() === idDrag.toString()) {
+          el.order = orderDrop
+        } else {
+          if (el.order === 0) el.order = 1
+          el.order -= 1
+        }
+        tab.push(el)
+      } else {
+        if (el.id.toString() === idDrag.toString()) {
+          el.order = orderDrop
+        } else {
+          el.order += 1
+        }
+        tab.push(el)
+      }
+    }
+    setTitles(tab)
   }
 
   return (
@@ -136,21 +161,24 @@ function Tables() {
         )}
       </div>
       <div className="tableau">
-        {titles.map((tableau, key) => {
-          return (
-            <Table
-              table={tableau}
-              key={key}
-              listTasks={tasks}
-              onDeleteTask={onDeleteTask}
-              moveTask={moveTask}
-              setDisplayUpdateFormTask={setDisplayUpdateFormTask}
-              setDisplayFormUpdateTable={setDisplayFormUpdateTable}
-              idTaskToEdit={idTaskToEdit}
-              updateTitleTable={updateTitleTable}
-            />
-          )
-        })}
+        {titles
+          .sort((a, b) => a.order - b.order)
+          .map((tableau, key) => {
+            return (
+              <Table
+                table={tableau}
+                key={key}
+                listTasks={tasks}
+                onDeleteTask={onDeleteTask}
+                moveTask={moveTask}
+                setDisplayUpdateFormTask={setDisplayUpdateFormTask}
+                setDisplayFormUpdateTable={setDisplayFormUpdateTable}
+                idTaskToEdit={idTaskToEdit}
+                updateTitleTable={updateTitleTable}
+                moveTable={moveTable}
+              />
+            )
+          })}
       </div>
     </>
   )
