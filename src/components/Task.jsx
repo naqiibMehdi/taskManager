@@ -23,7 +23,7 @@ function Task({ task, onDeleteTask, setDisplayUpdateFormTask, idTaskToEdit }) {
         setDisplayUpdateFormTask(true)
       }}
     >
-      <p className="m-0" style={{ height: "auto" }}>
+      <p className="m-0" style={{ maxWidth: "80%", wordWrap: "break-word" }}>
         {task.title}
       </p>
       <div>

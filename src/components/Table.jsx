@@ -1,5 +1,4 @@
 import React from "react"
-import formPlus from "../assets/plus.svg"
 import Task from "./Task"
 
 function Table({
@@ -8,7 +7,9 @@ function Table({
   onDeleteTask,
   moveTask,
   setDisplayUpdateFormTask,
+  setDisplayFormUpdateTable,
   idTaskToEdit,
+  updateTitleTable,
 }) {
   return (
     <>
@@ -20,7 +21,15 @@ function Table({
         }}
         onDragOver={(e) => e.preventDefault()}
       >
-        <p>{table.title}</p>
+        <p
+          onClick={() => {
+            updateTitleTable(table.id)
+            setDisplayFormUpdateTable(true)
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          {table.title}
+        </p>
         <div>
           {listTasks &&
             listTasks.map((task) => {
