@@ -147,8 +147,8 @@ function Tables() {
         )}
       </div>
       <div className="tableau">
-        {listTables
-          // .sort((a, b) => (a.order >= b.order ? 1 : -1))
+        {[...listTables]
+          .sort((a, b) => (a.order >= b.order ? 1 : -1))
           .map((tableau, key) => {
             return (
               <Table
