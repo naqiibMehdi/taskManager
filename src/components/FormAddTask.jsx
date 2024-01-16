@@ -1,8 +1,12 @@
 import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { addTask } from "../redux/tables/tasksSlice"
 
-function FormAddTask({ tables, onAddTask, setDisplayAddFormTask }) {
+function FormAddTask({ setDisplayAddFormTask }) {
   const [task, setTask] = useState("")
   const [idTable, setIdTable] = useState("0")
+  const tables = useSelector((state) => state.tables)
+  const dispatch = useDispatch()
   return (
     <>
       <div className="popup-overlay">
@@ -10,7 +14,7 @@ function FormAddTask({ tables, onAddTask, setDisplayAddFormTask }) {
           <form
             onSubmit={(e) => {
               e.preventDefault()
-              onAddTask(task, idTable)
+              dispatch(addTask({ tableId: idTable, title: task }))
               setTask("")
               setIdTable("")
               setDisplayAddFormTask(false)

@@ -1,9 +1,9 @@
 import React from "react"
 import Task from "./Task"
+import { useSelector } from "react-redux"
 
 function Table({
   table,
-  listTasks,
   onDeleteTask,
   moveTask,
   setDisplayUpdateFormTask,
@@ -12,6 +12,7 @@ function Table({
   updateTitleTable,
   moveTable,
 }) {
+  const tasks = useSelector((state) => state.tasks)
   return (
     <>
       <div
@@ -44,8 +45,8 @@ function Table({
           {table.title}
         </p>
         <div>
-          {listTasks &&
-            listTasks.map((task) => {
+          {tasks &&
+            tasks.map((task) => {
               if (table.id.toString() === task.tableId.toString()) {
                 return (
                   <Task

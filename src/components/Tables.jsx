@@ -28,15 +28,6 @@ function Tables() {
   const [getTask, setGetTask] = useState({})
   const [getTable, setGetTable] = useState({})
 
-  const deleteTable = (idTable) => {
-    const newTables = titles.filter((title) => title.id.toString() !== idTable)
-    setTitles(newTables)
-  }
-
-  const onAddTask = (titleTask, tableId) => {
-    setTasks([...tasks, { id: uuidv4(), title: titleTask, tableId }])
-  }
-
   const onDeleteTask = (id) => {
     const newTasks = [...tasks].filter((task) => task.id !== id)
     setTasks(newTasks)
@@ -120,11 +111,7 @@ function Tables() {
           <FormAddTable setDisplayAddFormTable={setDisplayAddFormTable} />
         )}
         {displayAddFormTask && (
-          <FormAddTask
-            tables={titles}
-            onAddTask={onAddTask}
-            setDisplayAddFormTask={setDisplayAddFormTask}
-          />
+          <FormAddTask setDisplayAddFormTask={setDisplayAddFormTask} />
         )}
         {displayDeleteFormTable && (
           <FormDeleteTable
