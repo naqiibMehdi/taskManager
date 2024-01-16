@@ -16,9 +16,12 @@ const TasksSlice = createSlice({
       const indextask = state.findIndex((t) => t.id === payload.id)
       state[indextask].title = payload.title
     },
+    deleteTask: (state, { payload }) => {
+      return state.filter((task) => task.id !== payload)
+    },
   },
 })
 
-export const { addTask, updateTask } = TasksSlice.actions
+export const { addTask, updateTask, deleteTask } = TasksSlice.actions
 
 export default TasksSlice

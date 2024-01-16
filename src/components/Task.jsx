@@ -1,6 +1,9 @@
 import React, { useState } from "react"
+import { deleteTask } from "../redux/tables/tasksSlice"
+import { useDispatch } from "react-redux"
 
-function Task({ task, onDeleteTask, setDisplayUpdateFormTask, idTaskToEdit }) {
+function Task({ task, setDisplayUpdateFormTask, idTaskToEdit }) {
+  const dispatch = useDispatch()
   return (
     <div
       style={{
@@ -30,7 +33,7 @@ function Task({ task, onDeleteTask, setDisplayUpdateFormTask, idTaskToEdit }) {
       <div
         onClick={(e) => {
           e.stopPropagation()
-          onDeleteTask()
+          dispatch(deleteTask(task.id))
         }}
         style={{ width: "20px", display: "flex", justifyContent: "center" }}
       >

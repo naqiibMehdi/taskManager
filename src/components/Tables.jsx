@@ -29,11 +29,6 @@ function Tables() {
   const [getTask, setGetTask] = useState({})
   const [getTable, setGetTable] = useState({})
 
-  const onDeleteTask = (id) => {
-    const newTasks = [...tasks].filter((task) => task.id !== id)
-    setTasks(newTasks)
-  }
-
   const moveTask = (idTaskdrop, idTableDrag) => {
     const newTasks = [...tasks]
     const indexTask = newTasks.findIndex((t) => t.id === idTaskdrop)
@@ -135,7 +130,6 @@ function Tables() {
                 table={tableau}
                 key={tableau.id}
                 listTasks={tasks}
-                onDeleteTask={onDeleteTask}
                 moveTask={moveTask}
                 setDisplayUpdateFormTask={setDisplayUpdateFormTask}
                 setDisplayFormUpdateTable={setDisplayFormUpdateTable}

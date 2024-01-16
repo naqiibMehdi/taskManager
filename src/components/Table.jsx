@@ -4,7 +4,6 @@ import { useSelector } from "react-redux"
 
 function Table({
   table,
-  onDeleteTask,
   moveTask,
   setDisplayUpdateFormTask,
   setDisplayFormUpdateTable,
@@ -52,7 +51,6 @@ function Table({
                   <Task
                     task={task}
                     key={task.id}
-                    onDeleteTask={() => onDeleteTask(task.id)}
                     setDisplayUpdateFormTask={setDisplayUpdateFormTask}
                     idTaskToEdit={idTaskToEdit}
                   />
