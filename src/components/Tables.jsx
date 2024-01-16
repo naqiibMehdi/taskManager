@@ -28,10 +28,6 @@ function Tables() {
   const [getTask, setGetTask] = useState({})
   const [getTable, setGetTable] = useState({})
 
-  const onAddTab = (title) => {
-    setTitles([...titles, { id: uuidv4(), title, order: titles.length + 1 }])
-  }
-
   const deleteTable = (idTable) => {
     const newTables = titles.filter((title) => title.id.toString() !== idTable)
     setTitles(newTables)
@@ -66,15 +62,8 @@ function Tables() {
   }
 
   const updateTitleTable = (idTable) => {
-    const oneTable = [...titles].find((t) => t.id === idTable)
+    const oneTable = [...listTables].find((t) => t.id === idTable)
     setGetTable(oneTable)
-  }
-
-  const updateTable = (titleTable, idTable) => {
-    const newTables = [...titles]
-    const indexTable = newTables.findIndex((t) => t.id === idTable)
-    newTables[indexTable].title = titleTable
-    setTitles(newTables)
   }
 
   const moveTable = (idDrag, idDrop, orderDrag, orderDrop) => {
@@ -156,7 +145,6 @@ function Tables() {
           <FormUpdateTable
             setDisplayFormUpdateTable={setDisplayFormUpdateTable}
             getTable={getTable}
-            updateTable={updateTable}
           />
         )}
       </div>

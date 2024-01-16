@@ -13,9 +13,15 @@ const TablesSlice = createSlice({
     addTable: (state, { payload }) => {
       state.push({ id: uuidv4(), title: payload, order: state.length + 1 })
     },
+    updateTable: (state, { payload }) => {
+      const indexTable = state.findIndex(
+        (t) => t.id.toString() === payload.id.toString()
+      )
+      state[indexTable].title = payload.title
+    },
   },
 })
 
-export const { addTable } = TablesSlice.actions
+export const { addTable, updateTable } = TablesSlice.actions
 
 export default TablesSlice
