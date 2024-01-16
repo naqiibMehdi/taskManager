@@ -7,11 +7,10 @@ function Table({
   table,
   setDisplayUpdateFormTask,
   setDisplayFormUpdateTable,
-  idTaskToEdit,
   updateTitleTable,
   moveTable,
 }) {
-  const tasks = useSelector((state) => state.tasks)
+  const tasks = useSelector((state) => state.tasks.tasks)
   const dispatch = useDispatch()
   return (
     <>
@@ -53,7 +52,6 @@ function Table({
                     task={task}
                     key={task.id}
                     setDisplayUpdateFormTask={setDisplayUpdateFormTask}
-                    idTaskToEdit={idTaskToEdit}
                   />
                 )
               }

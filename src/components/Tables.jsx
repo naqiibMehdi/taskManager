@@ -10,9 +10,8 @@ import { useSelector } from "react-redux"
 
 function Tables() {
   const listTables = useSelector((state) => state.tables)
-  const listTasks = useSelector((state) => state.tasks)
+  const listTasks = useSelector((state) => state.tasks.tasks)
 
-  const [tasks, setTasks] = useState([])
   const [displayAddFormTable, setDisplayAddFormTable] = useState(false)
   const [displayDeleteFormTable, setDisplayDeleteFormTable] = useState(false)
   const [displayAddFormTask, setDisplayAddFormTask] = useState(false)
@@ -20,11 +19,6 @@ function Tables() {
   const [displayFormUpdateTable, setDisplayFormUpdateTable] = useState(false)
   const [getTask, setGetTask] = useState({})
   const [getTable, setGetTable] = useState({})
-
-  const idTaskToEdit = (idTask) => {
-    const getTask = [...listTasks].find((t) => t.id === idTask)
-    setGetTask(getTask)
-  }
 
   const updateTitleTable = (idTable) => {
     const oneTable = [...listTables].find((t) => t.id === idTable)
@@ -93,10 +87,7 @@ function Tables() {
           />
         )}
         {displayUpdateFormTask && (
-          <FormUpdateTask
-            setDisplayUpdateFormTask={setDisplayUpdateFormTask}
-            task={getTask}
-          />
+          <FormUpdateTask setDisplayUpdateFormTask={setDisplayUpdateFormTask} />
         )}
 
         {displayFormUpdateTable && (
@@ -114,10 +105,8 @@ function Tables() {
               <Table
                 table={tableau}
                 key={tableau.id}
-                listTasks={tasks}
                 setDisplayUpdateFormTask={setDisplayUpdateFormTask}
                 setDisplayFormUpdateTable={setDisplayFormUpdateTable}
-                idTaskToEdit={idTaskToEdit}
                 updateTitleTable={updateTitleTable}
                 moveTable={moveTable}
               />

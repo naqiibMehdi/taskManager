@@ -3,31 +3,38 @@ import { v4 as uuidv4 } from "uuid"
 
 const TasksSlice = createSlice({
   name: "tasks",
-  initialState: [],
+  initialState: {
+    tasks: [],
+    task: {},
+  },
   reducers: {
     addTask: (state, { payload }) => {
-      state.push({
+      state.tasks.push({
         id: uuidv4(),
         title: payload.title,
         tableId: payload.tableId,
       })
     },
     updateTask: (state, { payload }) => {
-      const indextask = state.findIndex((t) => t.id === payload.id)
-      state[indextask].title = payload.title
+      const indextask = state.tasks.findIndex((t) => t.id === payload.id)
+      state.tasks[indextask].title = payload.title
     },
     deleteTask: (state, { payload }) => {
-      return state.filter((task) => task.id !== payload)
+      return state.tasks.filter((task) => task.id !== payload)
     },
     moveTask: (state, { payload }) => {
       let idTaskDrop = payload.idTaskDrop
       let idTableDrag = payload.idTableDrag
-      const indexTask = state.findIndex((t) => t.id === idTaskDrop)
-      state[indexTask].tableId = idTableDrag
+      const indexTask = state.tasks.findIndex((t) => t.id === idTaskDrop)
+      state.tasks[indexTask].tableId = idTableDrag
+    },
+    getTask: (state, { payload }) => {
+      state.task = state.tasks.find((t) => t.id === payload)
     },
   },
 })
 
-export const { addTask, updateTask, deleteTask, moveTask } = TasksSlice.actions
+export const { addTask, updateTask, deleteTask, moveTask, getTask } =
+  TasksSlice.actions
 
 export default TasksSlice

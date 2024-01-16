@@ -1,10 +1,11 @@
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { updateTask } from "../redux/tables/tasksSlice"
 
-function FormUpdateTask({ setDisplayUpdateFormTask, task }) {
+function FormUpdateTask({ setDisplayUpdateFormTask }) {
   const [titleTask, setTitleTask] = useState("")
   const dispatch = useDispatch()
+  const task = useSelector((state) => state.tasks.task)
   return (
     <>
       <div className="popup-overlay">
