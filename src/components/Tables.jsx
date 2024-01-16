@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid"
 import FormAddTask from "./FormAddTask"
 import FormUpdateTask from "./FormUpdateTask"
 import FormUpdateTable from "./FormUpdateTable"
+import { useSelector } from "react-redux"
 
 function Tables() {
   const [titles, setTitles] = useState([
@@ -15,6 +16,8 @@ function Tables() {
     { id: 3, title: "a faire", order: 3 },
     { id: 4, title: "en cours", order: 4 },
   ])
+
+  const listTables = useSelector((state) => state.tables)
 
   const [tasks, setTasks] = useState([])
   const [displayAddFormTable, setDisplayAddFormTable] = useState(false)
@@ -125,10 +128,7 @@ function Tables() {
         </button>
 
         {displayAddFormTable && (
-          <FormAddTable
-            onAddTab={onAddTab}
-            setDisplayAddFormTable={setDisplayAddFormTable}
-          />
+          <FormAddTable setDisplayAddFormTable={setDisplayAddFormTable} />
         )}
         {displayAddFormTask && (
           <FormAddTask
@@ -161,8 +161,8 @@ function Tables() {
         )}
       </div>
       <div className="tableau">
-        {titles
-          .sort((a, b) => a.order - b.order)
+        {listTables
+          // .sort((a, b) => (a.order >= b.order ? 1 : -1))
           .map((tableau, key) => {
             return (
               <Table
