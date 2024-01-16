@@ -3,20 +3,12 @@ import Table from "./Table"
 import FormAddTable from "./FormAddTable"
 import FormDeleteTable from "./FormDeleteTable"
 import { Link } from "react-router-dom"
-import { v4 as uuidv4 } from "uuid"
 import FormAddTask from "./FormAddTask"
 import FormUpdateTask from "./FormUpdateTask"
 import FormUpdateTable from "./FormUpdateTable"
 import { useSelector } from "react-redux"
 
 function Tables() {
-  const [titles, setTitles] = useState([
-    { id: 1, title: "projet ressource", order: 1 },
-    { id: 2, title: "Sujet de la prochaine réunion", order: 2 },
-    { id: 3, title: "a faire", order: 3 },
-    { id: 4, title: "en cours", order: 4 },
-  ])
-
   const listTables = useSelector((state) => state.tables)
   const listTasks = useSelector((state) => state.tasks)
 
@@ -28,13 +20,6 @@ function Tables() {
   const [displayFormUpdateTable, setDisplayFormUpdateTable] = useState(false)
   const [getTask, setGetTask] = useState({})
   const [getTable, setGetTable] = useState({})
-
-  const moveTask = (idTaskdrop, idTableDrag) => {
-    const newTasks = [...tasks]
-    const indexTask = newTasks.findIndex((t) => t.id === idTaskdrop)
-    newTasks[indexTask].tableId = idTableDrag
-    setTasks(newTasks)
-  }
 
   const idTaskToEdit = (idTask) => {
     const getTask = [...listTasks].find((t) => t.id === idTask)
@@ -130,7 +115,6 @@ function Tables() {
                 table={tableau}
                 key={tableau.id}
                 listTasks={tasks}
-                moveTask={moveTask}
                 setDisplayUpdateFormTask={setDisplayUpdateFormTask}
                 setDisplayFormUpdateTable={setDisplayFormUpdateTable}
                 idTaskToEdit={idTaskToEdit}

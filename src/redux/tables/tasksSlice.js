@@ -19,9 +19,15 @@ const TasksSlice = createSlice({
     deleteTask: (state, { payload }) => {
       return state.filter((task) => task.id !== payload)
     },
+    moveTask: (state, { payload }) => {
+      let idTaskDrop = payload.idTaskDrop
+      let idTableDrag = payload.idTableDrag
+      const indexTask = state.findIndex((t) => t.id === idTaskDrop)
+      state[indexTask].tableId = idTableDrag
+    },
   },
 })
 
-export const { addTask, updateTask, deleteTask } = TasksSlice.actions
+export const { addTask, updateTask, deleteTask, moveTask } = TasksSlice.actions
 
 export default TasksSlice

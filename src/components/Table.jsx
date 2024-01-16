@@ -1,10 +1,10 @@
 import React from "react"
 import Task from "./Task"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { moveTask } from "../redux/tables/tasksSlice"
 
 function Table({
   table,
-  moveTask,
   setDisplayUpdateFormTask,
   setDisplayFormUpdateTable,
   idTaskToEdit,
@@ -12,6 +12,7 @@ function Table({
   moveTable,
 }) {
   const tasks = useSelector((state) => state.tasks)
+  const dispatch = useDispatch()
   return (
     <>
       <div
@@ -26,7 +27,7 @@ function Table({
           const order_table_drag = e.dataTransfer.getData("order")
           const idTask = e.dataTransfer.getData("id_task")
           if (idTask) {
-            moveTask(idTask, table.id)
+            dispatch(moveTask({ idTaskDrop: idTask, idTableDrag: table.id }))
             return
           } else if (idTable_drag) {
             moveTable(idTable_drag, table.id, order_table_drag, table.order)
