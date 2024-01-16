@@ -12,9 +12,13 @@ const TasksSlice = createSlice({
         tableId: payload.tableId,
       })
     },
+    updateTask: (state, { payload }) => {
+      const indextask = state.findIndex((t) => t.id === payload.id)
+      state[indextask].title = payload.title
+    },
   },
 })
 
-export const { addTask } = TasksSlice.actions
+export const { addTask, updateTask } = TasksSlice.actions
 
 export default TasksSlice

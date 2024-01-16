@@ -1,7 +1,10 @@
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { updateTask } from "../redux/tables/tasksSlice"
 
-function FormUpdateTask({ setDisplayUpdateFormTask, task, updateTask }) {
+function FormUpdateTask({ setDisplayUpdateFormTask, task }) {
   const [titleTask, setTitleTask] = useState("")
+  const dispatch = useDispatch()
   return (
     <>
       <div className="popup-overlay">
@@ -10,7 +13,8 @@ function FormUpdateTask({ setDisplayUpdateFormTask, task, updateTask }) {
             className="w-100 p-0"
             onSubmit={(e) => {
               e.preventDefault()
-              updateTask(titleTask, task.id)
+              // updateTask(titleTask, task.id)
+              dispatch(updateTask({ title: titleTask, id: task.id }))
               setDisplayUpdateFormTask(false)
             }}
           >

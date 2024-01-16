@@ -18,6 +18,7 @@ function Tables() {
   ])
 
   const listTables = useSelector((state) => state.tables)
+  const listTasks = useSelector((state) => state.tasks)
 
   const [tasks, setTasks] = useState([])
   const [displayAddFormTable, setDisplayAddFormTable] = useState(false)
@@ -41,15 +42,8 @@ function Tables() {
   }
 
   const idTaskToEdit = (idTask) => {
-    const getTask = [...tasks].find((t) => t.id === idTask)
+    const getTask = [...listTasks].find((t) => t.id === idTask)
     setGetTask(getTask)
-  }
-
-  const updateTask = (titleTask, idTask) => {
-    const newTasks = [...tasks]
-    const indextask = newTasks.findIndex((t) => t.id === idTask)
-    newTasks[indextask].title = titleTask
-    setTasks(newTasks)
   }
 
   const updateTitleTable = (idTable) => {
@@ -122,7 +116,6 @@ function Tables() {
           <FormUpdateTask
             setDisplayUpdateFormTask={setDisplayUpdateFormTask}
             task={getTask}
-            updateTask={updateTask}
           />
         )}
 
