@@ -1,11 +1,11 @@
 import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { deleteTable } from "../redux/tables/tablesSlice"
 
-function FormDeleteTable({
-  listTitle,
-  deleteTable,
-  setDisplayDeleteFormTable,
-}) {
+function FormDeleteTable({ setDisplayDeleteFormTable }) {
   const [id, setId] = useState("0")
+  const dispatch = useDispatch()
+  const listTables = useSelector((state) => state.tables)
   return (
     <>
       <div className="popup-overlay">
@@ -21,7 +21,7 @@ function FormDeleteTable({
               }}
             >
               <option defaultValue="0">-</option>
-              {listTitle.map((objTab) => {
+              {listTables.map((objTab) => {
                 return (
                   <option value={objTab.id} key={objTab.id}>
                     {objTab.title}
@@ -34,7 +34,7 @@ function FormDeleteTable({
               disabled={id === "0" ? true : false}
               onClick={(e) => {
                 e.preventDefault()
-                deleteTable(id)
+                dispatch(deleteTable(id))
                 setId("0")
                 setDisplayDeleteFormTable(false)
               }}

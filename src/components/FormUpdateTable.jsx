@@ -13,7 +13,6 @@ function FormUpdateTable({ setDisplayFormUpdateTable, getTable }) {
             className="w-100 p-0"
             onSubmit={(e) => {
               e.preventDefault()
-              // updateTable(title, getTable.id)
               dispatch(updateTable({ title, id: getTable.id }))
               setDisplayFormUpdateTable(false)
             }}

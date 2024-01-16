@@ -19,9 +19,12 @@ const TablesSlice = createSlice({
       )
       state[indexTable].title = payload.title
     },
+    deleteTable: (state, { payload }) => {
+      return state.filter((table) => table.id.toString() !== payload.toString())
+    },
   },
 })
 
-export const { addTable, updateTable } = TablesSlice.actions
+export const { addTable, updateTable, deleteTable } = TablesSlice.actions
 
 export default TablesSlice

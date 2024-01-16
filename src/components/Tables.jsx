@@ -128,8 +128,6 @@ function Tables() {
         )}
         {displayDeleteFormTable && (
           <FormDeleteTable
-            listTitle={titles}
-            deleteTable={deleteTable}
             setDisplayDeleteFormTable={setDisplayDeleteFormTable}
           />
         )}
@@ -155,7 +153,7 @@ function Tables() {
             return (
               <Table
                 table={tableau}
-                key={key}
+                key={tableau.id}
                 listTasks={tasks}
                 onDeleteTask={onDeleteTask}
                 moveTask={moveTask}
