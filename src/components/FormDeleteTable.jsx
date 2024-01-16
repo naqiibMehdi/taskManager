@@ -5,7 +5,7 @@ import { deleteTable } from "../redux/tables/tablesSlice"
 function FormDeleteTable({ setDisplayDeleteFormTable }) {
   const [id, setId] = useState("0")
   const dispatch = useDispatch()
-  const listTables = useSelector((state) => state.tables)
+  const listTables = useSelector((state) => state.tables.tables)
   return (
     <>
       <div className="popup-overlay">

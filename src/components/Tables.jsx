@@ -9,21 +9,13 @@ import FormUpdateTable from "./FormUpdateTable"
 import { useSelector } from "react-redux"
 
 function Tables() {
-  const listTables = useSelector((state) => state.tables)
-  const listTasks = useSelector((state) => state.tasks.tasks)
+  const listTables = useSelector((state) => state.tables.tables)
 
   const [displayAddFormTable, setDisplayAddFormTable] = useState(false)
   const [displayDeleteFormTable, setDisplayDeleteFormTable] = useState(false)
   const [displayAddFormTask, setDisplayAddFormTask] = useState(false)
   const [displayUpdateFormTask, setDisplayUpdateFormTask] = useState(false)
   const [displayFormUpdateTable, setDisplayFormUpdateTable] = useState(false)
-  const [getTask, setGetTask] = useState({})
-  const [getTable, setGetTable] = useState({})
-
-  const updateTitleTable = (idTable) => {
-    const oneTable = [...listTables].find((t) => t.id === idTable)
-    setGetTable(oneTable)
-  }
 
   const moveTable = (idDrag, idDrop, orderDrag, orderDrop) => {
     const tablesDragDrop = [...titles]
@@ -93,7 +85,6 @@ function Tables() {
         {displayFormUpdateTable && (
           <FormUpdateTable
             setDisplayFormUpdateTable={setDisplayFormUpdateTable}
-            getTable={getTable}
           />
         )}
       </div>
@@ -107,7 +98,6 @@ function Tables() {
                 key={tableau.id}
                 setDisplayUpdateFormTask={setDisplayUpdateFormTask}
                 setDisplayFormUpdateTable={setDisplayFormUpdateTable}
-                updateTitleTable={updateTitleTable}
                 moveTable={moveTable}
               />
             )

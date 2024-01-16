@@ -5,7 +5,7 @@ import { addTask } from "../redux/tables/tasksSlice"
 function FormAddTask({ setDisplayAddFormTask }) {
   const [task, setTask] = useState("")
   const [idTable, setIdTable] = useState("0")
-  const tables = useSelector((state) => state.tables)
+  const tables = useSelector((state) => state.tables.tables)
   const dispatch = useDispatch()
   return (
     <>

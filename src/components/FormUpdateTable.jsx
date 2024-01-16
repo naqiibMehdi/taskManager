@@ -1,10 +1,11 @@
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { updateTable } from "../redux/tables/tablesSlice"
 
-function FormUpdateTable({ setDisplayFormUpdateTable, getTable }) {
+function FormUpdateTable({ setDisplayFormUpdateTable }) {
   const [title, setTitleTable] = useState("")
   const dispatch = useDispatch()
+  const table = useSelector((state) => state.tables.table)
   return (
     <>
       <div className="popup-overlay">
@@ -13,7 +14,7 @@ function FormUpdateTable({ setDisplayFormUpdateTable, getTable }) {
             className="w-100 p-0"
             onSubmit={(e) => {
               e.preventDefault()
-              dispatch(updateTable({ title, id: getTable.id }))
+              dispatch(updateTable({ title, id: table.id }))
               setDisplayFormUpdateTable(false)
             }}
           >
@@ -25,7 +26,7 @@ function FormUpdateTable({ setDisplayFormUpdateTable, getTable }) {
                 type="text"
                 className="form-control mb-2"
                 id="titre"
-                value={title || getTable.title}
+                value={title || table.title}
                 onChange={(e) => setTitleTable(e.target.value)}
               />
             </div>

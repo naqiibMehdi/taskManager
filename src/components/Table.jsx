@@ -2,12 +2,12 @@ import React from "react"
 import Task from "./Task"
 import { useDispatch, useSelector } from "react-redux"
 import { moveTask } from "../redux/tables/tasksSlice"
+import { getOneTable } from "../redux/tables/tablesSlice"
 
 function Table({
   table,
   setDisplayUpdateFormTask,
   setDisplayFormUpdateTable,
-  updateTitleTable,
   moveTable,
 }) {
   const tasks = useSelector((state) => state.tasks.tasks)
@@ -36,7 +36,7 @@ function Table({
       >
         <p
           onClick={() => {
-            updateTitleTable(table.id)
+            dispatch(getOneTable(table.id))
             setDisplayFormUpdateTable(true)
           }}
           style={{ cursor: "pointer" }}
