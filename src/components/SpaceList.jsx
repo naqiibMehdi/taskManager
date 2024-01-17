@@ -1,23 +1,33 @@
 import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 
 export default function SpaceList() {
   const spaces = useSelector((state) => state.spaces.spaces)
-  useEffect(() => {}, [spaces])
   return (
     <>
-      <div className="container d-flex flex-wrap gap-4 py-3">
+      <div
+        className="container my-5"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "20px",
+        }}
+      >
         {spaces.map((space) => (
-          <div
-            key={space.id}
-            style={{
-              width: "280px",
-              height: "200px",
-              border: "solid 1px black",
-            }}
-          >
-            <p className="pt-2 px-2">{space.title}</p>
-          </div>
+          <Link to={`tableaux/${space.id}`} key={space.id}>
+            <div
+              style={{
+                height: "150px",
+                border: "solid 1px black",
+                backgroundColor: "#0065ff",
+              }}
+            >
+              <p className="pt-2 px-2" style={{ color: "#ffffff" }}>
+                {space.title}
+              </p>
+            </div>
+          </Link>
         ))}
       </div>
     </>

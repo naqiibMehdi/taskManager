@@ -2,13 +2,15 @@ import React, { useState } from "react"
 import Table from "./Table"
 import FormAddTable from "./FormAddTable"
 import FormDeleteTable from "./FormDeleteTable"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import FormAddTask from "./FormAddTask"
 import FormUpdateTask from "./FormUpdateTask"
 import FormUpdateTable from "./FormUpdateTable"
 import { useSelector } from "react-redux"
 
 function Tables() {
+  const params = useParams()
+
   const listTables = useSelector((state) => state.tables.tables)
 
   const [displayAddFormTable, setDisplayAddFormTable] = useState(false)
@@ -91,7 +93,8 @@ function Tables() {
       <div className="tableau">
         {[...listTables]
           .sort((a, b) => (a.order >= b.order ? 1 : -1))
-          .map((tableau, key) => {
+          .filter((t) => t.id.toString() === params.id.toString())
+          .map((tableau) => {
             return (
               <Table
                 table={tableau}

@@ -11,6 +11,9 @@ function HomePage() {
       <Link to="/tasklist" className="btn btn-primary">
         Liste des Tables
       </Link>
+      <Link to="/spaces" className="btn btn-primary">
+        Liste des spaces
+      </Link>
     </>
   )
 }
