@@ -6,7 +6,7 @@ import { displayFormUpdate, getSpace } from "../redux/tables/spaceSlice"
 export default function SpaceItem({ space }) {
   const dispatch = useDispatch()
   return (
-    <Link to={`/spaces/${space.id}/tables`}>
+    <Link to={`/spaces/${space.id}/tables`} style={{ textDecoration: "none" }}>
       <div
         style={{
           height: "150px",
