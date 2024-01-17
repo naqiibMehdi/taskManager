@@ -49,6 +49,9 @@ function Tables() {
       <Link to="/" className="btn btn-primary">
         Page d'accueil
       </Link>
+      <Link to="/spaces" className="btn btn-primary">
+        Page des spaces
+      </Link>
       <div className="container mx-auto my-4 w-80 d-flex align-items-start justify-content-center column-gap-5">
         <button
           className="btn btn-primary"
@@ -93,7 +96,7 @@ function Tables() {
       <div className="tableau">
         {[...listTables]
           .sort((a, b) => (a.order >= b.order ? 1 : -1))
-          .filter((t) => t.id.toString() === params.id.toString())
+          .filter((t) => t.spaceId.toString() === params.id.toString())
           .map((tableau) => {
             return (
               <Table
