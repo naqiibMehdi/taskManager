@@ -1,11 +1,14 @@
 import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import SpaceItem from "./SpaceItem"
+import FormUpdateSpace from "./FormUpdateSpace"
 
 export default function SpaceList() {
   const spaces = useSelector((state) => state.spaces.spaces)
+  const displayForm = useSelector((state) => state.spaces.hideFormUpdate)
   return (
     <>
+      {displayForm && <FormUpdateSpace />}
       <div
         className="container my-5"
         style={{
@@ -15,19 +18,7 @@ export default function SpaceList() {
         }}
       >
         {spaces.map((space) => (
-          <Link to={`/spaces/${space.id}/tables`} key={space.id}>
-            <div
-              style={{
-                height: "150px",
-                border: "solid 1px black",
-                backgroundColor: "#0065ff",
-              }}
-            >
-              <p className="pt-2 px-2" style={{ color: "#ffffff" }}>
-                {space.title}
-              </p>
-            </div>
-          </Link>
+          <SpaceItem space={space} key={space.id} />
         ))}
       </div>
     </>
