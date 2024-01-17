@@ -95,8 +95,8 @@ function Tables() {
       </div>
       <div className="tableau">
         {[...listTables]
-          .sort((a, b) => (a.order >= b.order ? 1 : -1))
           .filter((t) => t.spaceId.toString() === params.id.toString())
+          .sort((a, b) => (a.order >= b.order ? 1 : -1))
           .map((tableau) => {
             return (
               <Table

@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/spaces/tableaux/:id" element={<Tables />} />
+        <Route path="/spaces/:id/tables" element={<Tables />} />
         <Route path="/spaces" element={<SpaceList />} />
       </Routes>
     </>

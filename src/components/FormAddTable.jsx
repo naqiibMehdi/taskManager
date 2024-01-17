@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { addTable } from "../redux/tables/tablesSlice"
+import { useParams } from "react-router-dom"
 
 function FormAddTable({ setDisplayAddFormTable }) {
   const [title, setTitle] = useState("")
   const dispatch = useDispatch()
+  const params = useParams()
   return (
     <>
       <div className="popup-overlay">
@@ -17,7 +19,7 @@ function FormAddTable({ setDisplayAddFormTable }) {
                 alert("Vous devez saisir un titre pour ajouter un tableau")
                 return
               }
-              dispatch(addTable(title))
+              dispatch(addTable({ title, spaceId: params.id }))
               setTitle("")
               setDisplayAddFormTable(false)
             }}

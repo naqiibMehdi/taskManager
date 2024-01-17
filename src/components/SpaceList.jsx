@@ -15,7 +15,7 @@ export default function SpaceList() {
         }}
       >
         {spaces.map((space) => (
-          <Link to={`tableaux/${space.id}`} key={space.id}>
+          <Link to={`/spaces/${space.id}/tables`} key={space.id}>
             <div
               style={{
                 height: "150px",
