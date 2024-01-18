@@ -57,6 +57,7 @@ const SpaceSlice = createSlice({
         }
       })
       state.spaces = newSpaces
+      state.spacesToDelete = []
     },
   },
 })

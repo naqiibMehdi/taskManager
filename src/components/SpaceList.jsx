@@ -26,7 +26,9 @@ export default function SpaceList() {
         ))}
       </div>
       <button
-        className="btn btn-danger"
+        className={
+          listSpacesToDelete.length === 0 ? "d-none" : "btn btn-danger"
+        }
         onClick={() => {
           dispatch(deleteTablesWithSpaces(listSpacesToDelete))
           dispatch(deleteSpaces(listSpacesToDelete))
