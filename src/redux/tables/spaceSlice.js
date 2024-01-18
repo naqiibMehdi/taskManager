@@ -48,11 +48,11 @@ const SpaceSlice = createSlice({
       state.spaces[index].title = payload.title
     },
     addSpacesToDelete: (state, { payload }) => {
-      state.spacesToDelete.push(payload)
+      state.spacesToDelete.push(payload.toString())
     },
     deleteSpaces: (state, { payload }) => {
       let newSpaces = state.spaces.filter((space) => {
-        if (!payload.includes(space.id)) {
+        if (!payload.includes(space.id.toString())) {
           return space
         }
       })

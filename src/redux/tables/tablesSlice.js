@@ -9,7 +9,6 @@ const TablesSlice = createSlice({
       { id: 2, title: "Sujet de la prochaine réunion", order: 2, spaceId: 2 },
       { id: 3, title: "a faire", order: 3, spaceId: 3 },
       { id: 4, title: "en cours", order: 4, spaceId: 4 },
-      { id: 1, title: "test", order: 5, spaceId: 1 },
     ],
     table: {},
   },
@@ -40,7 +39,7 @@ const TablesSlice = createSlice({
     },
     deleteTablesWithSpaces: (state, { payload }) => {
       let newTables = state.tables.filter((table) => {
-        if (!payload.includes(parseInt(table.spaceId))) {
+        if (!payload.includes(table.spaceId.toString())) {
           return table
         }
       })
