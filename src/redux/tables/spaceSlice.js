@@ -29,6 +29,7 @@ const SpaceSlice = createSlice({
     spaces,
     space: {},
     hideFormUpdate: null,
+    spacesToDelete: [],
   },
   reducers: {
     displayFormUpdate: (state, { payload }) => {
@@ -46,9 +47,26 @@ const SpaceSlice = createSlice({
       state.spaces[index].bgcolor = payload.bgcolor
       state.spaces[index].title = payload.title
     },
+    addSpacesToDelete: (state, { payload }) => {
+      state.spacesToDelete.push(payload)
+    },
+    deleteSpaces: (state, { payload }) => {
+      let newSpaces = state.spaces.filter((space) => {
+        if (!payload.includes(space.id)) {
+          return space
+        }
+      })
+      state.spaces = newSpaces
+    },
   },
 })
 
-export const { displayFormUpdate, getSpace, updateSpace } = SpaceSlice.actions
+export const {
+  displayFormUpdate,
+  getSpace,
+  updateSpace,
+  addSpacesToDelete,
+  deleteSpaces,
+} = SpaceSlice.actions
 
 export default SpaceSlice

@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { updateTable } from "../redux/tables/tablesSlice"
 import { displayFormUpdate, updateSpace } from "../redux/tables/spaceSlice"
 import { MuiColorInput } from "mui-color-input"
 
@@ -30,11 +29,12 @@ function FormUpdateSpace() {
                 })
               )
               dispatch(displayFormUpdate(false))
+              setColor("")
             }}
           >
             <div className="form-group">
               <label htmlFor="titre" className="mb-2">
-                Edition du titre de la Table
+                Edition du titre et de la couleur de fond du Space
               </label>
               <input
                 type="text"

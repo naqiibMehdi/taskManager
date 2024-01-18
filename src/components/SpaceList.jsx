@@ -1,11 +1,15 @@
 import React, { useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import SpaceItem from "./SpaceItem"
 import FormUpdateSpace from "./FormUpdateSpace"
+import { deleteSpaces } from "../redux/tables/spaceSlice"
+import { deleteTablesWithSpaces } from "../redux/tables/tablesSlice"
 
 export default function SpaceList() {
   const spaces = useSelector((state) => state.spaces.spaces)
   const displayForm = useSelector((state) => state.spaces.hideFormUpdate)
+  const listSpacesToDelete = useSelector((state) => state.spaces.spacesToDelete)
+  const dispatch = useDispatch()
   return (
     <>
       {displayForm && <FormUpdateSpace />}
@@ -21,6 +25,15 @@ export default function SpaceList() {
           <SpaceItem space={space} key={space.id} />
         ))}
       </div>
+      <button
+        className="btn btn-danger"
+        onClick={() => {
+          dispatch(deleteTablesWithSpaces(listSpacesToDelete))
+          dispatch(deleteSpaces(listSpacesToDelete))
+        }}
+      >
+        Supprimer en masse
+      </button>
     </>
   )
 }

@@ -9,6 +9,7 @@ const TablesSlice = createSlice({
       { id: 2, title: "Sujet de la prochaine réunion", order: 2, spaceId: 2 },
       { id: 3, title: "a faire", order: 3, spaceId: 3 },
       { id: 4, title: "en cours", order: 4, spaceId: 4 },
+      { id: 1, title: "test", order: 5, spaceId: 1 },
     ],
     table: {},
   },
@@ -17,7 +18,7 @@ const TablesSlice = createSlice({
       state.tables.push({
         id: uuidv4(),
         title: payload.title,
-        order: state.length + 1,
+        order: state.tables.length + 1,
         spaceId: payload.spaceId,
       })
     },
@@ -37,10 +38,23 @@ const TablesSlice = createSlice({
         (t) => t.id.toString() === payload.toString()
       )
     },
+    deleteTablesWithSpaces: (state, { payload }) => {
+      let newTables = state.tables.filter((table) => {
+        if (!payload.includes(parseInt(table.spaceId))) {
+          return table
+        }
+      })
+      state.tables = newTables
+    },
   },
 })
 
-export const { addTable, updateTable, deleteTable, getOneTable } =
-  TablesSlice.actions
+export const {
+  addTable,
+  updateTable,
+  deleteTable,
+  getOneTable,
+  deleteTablesWithSpaces,
+} = TablesSlice.actions
 
 export default TablesSlice
