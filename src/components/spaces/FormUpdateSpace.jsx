@@ -30,7 +30,7 @@ function FormUpdateSpace() {
                 dispatch(
                   addSpace({
                     title: !title ? "default space" : title,
-                    bgcolor: !color ? "#0065ff" : color,
+                    bgcolor: color,
                   })
                 )
                 dispatch(addForm(false))
@@ -50,7 +50,10 @@ function FormUpdateSpace() {
                   onChange={(e) => setTitleSpace(e.target.value)}
                 />
               </div>
-              <MuiColorInput value={color} onChange={handleChange} />
+              <MuiColorInput
+                value={color || "#0065ff"}
+                onChange={handleChange}
+              />
               <div className="d-flex gap-2 mt-3">
                 <button className="btn btn-primary" type="submit">
                   Valider
