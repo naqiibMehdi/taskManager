@@ -2,7 +2,11 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import SpaceItem from "./SpaceItem"
 import FormUpdateSpace from "./FormUpdateSpace"
-import { deleteSpaces } from "../../redux/tables/spaceSlice"
+import {
+  addForm,
+  deleteSpaces,
+  displayFormUpdate,
+} from "../../redux/tables/spaceSlice"
 import { deleteTablesWithSpaces } from "../../redux/tables/tablesSlice"
 
 export default function SpaceList() {
@@ -35,6 +39,15 @@ export default function SpaceList() {
         }}
       >
         Supprimer en masse
+      </button>
+      <button
+        className={"btn btn-success"}
+        onClick={() => {
+          dispatch(addForm(true))
+          dispatch(displayFormUpdate(true))
+        }}
+      >
+        Ajouter un space
       </button>
     </>
   )

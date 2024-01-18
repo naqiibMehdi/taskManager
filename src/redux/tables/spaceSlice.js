@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { v4 as uuidv4 } from "uuid"
 
 const spaces = [
   {
@@ -29,9 +30,20 @@ const SpaceSlice = createSlice({
     spaces,
     space: {},
     hideFormUpdate: null,
+    addOrEdit: null,
     spacesToDelete: [],
   },
   reducers: {
+    addSpace: (state, { payload }) => {
+      state.spaces.push({
+        id: uuidv4(),
+        title: payload.title,
+        bgcolor: payload.bgcolor,
+      })
+    },
+    addForm: (state, { payload }) => {
+      state.addOrEdit = payload
+    },
     displayFormUpdate: (state, { payload }) => {
       state.hideFormUpdate = payload
     },
@@ -68,6 +80,8 @@ export const {
   updateSpace,
   addSpacesToDelete,
   deleteSpaces,
+  addForm,
+  addSpace,
 } = SpaceSlice.actions
 
 export default SpaceSlice
