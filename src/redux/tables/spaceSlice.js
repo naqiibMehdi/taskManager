@@ -40,6 +40,7 @@ const SpaceSlice = createSlice({
         title: payload.title,
         bgcolor: payload.bgcolor,
       })
+      state.addOrEdit = false
     },
     addForm: (state, { payload }) => {
       state.addOrEdit = payload

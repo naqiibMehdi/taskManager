@@ -2,6 +2,8 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import SpaceItem from "./SpaceItem"
 import FormUpdateSpace from "./FormUpdateSpace"
+import Box from "@mui/material/Box"
+import Grid from "@mui/material/Unstable_Grid2"
 import {
   addForm,
   deleteSpaces,
@@ -17,38 +19,40 @@ export default function SpaceList() {
   return (
     <>
       {displayForm && <FormUpdateSpace />}
-      <div
-        className="container my-5"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "20px",
-        }}
-      >
-        {spaces.map((space) => (
-          <SpaceItem space={space} key={space.id} />
-        ))}
-      </div>
-      <button
-        className={
-          listSpacesToDelete.length === 0 ? "d-none" : "btn btn-danger"
-        }
-        onClick={() => {
-          dispatch(deleteTablesWithSpaces(listSpacesToDelete))
-          dispatch(deleteSpaces(listSpacesToDelete))
-        }}
-      >
-        Supprimer en masse
-      </button>
-      <button
-        className={"btn btn-success"}
-        onClick={() => {
-          dispatch(addForm(true))
-          dispatch(displayFormUpdate(true))
-        }}
-      >
-        Ajouter un space
-      </button>
+      <Box sx={{ margin: "20px" }}>
+        <Grid
+          container
+          spacing={2}
+          columns={{ lg: 4, md: 3, sm: 2, xs: 1 }}
+          sx={{ marginBlockEnd: "5px" }}
+        >
+          {spaces.map((space) => (
+            <Grid lg={1} md={1} sm={1} xs={1} key={space.id}>
+              <SpaceItem space={space} />
+            </Grid>
+          ))}
+        </Grid>
+        <button
+          className={
+            listSpacesToDelete.length === 0 ? "d-none" : "btn btn-danger"
+          }
+          onClick={() => {
+            dispatch(deleteTablesWithSpaces(listSpacesToDelete))
+            dispatch(deleteSpaces(listSpacesToDelete))
+          }}
+        >
+          Supprimer en masse
+        </button>
+        <button
+          className={"btn btn-success"}
+          onClick={() => {
+            dispatch(addForm(true))
+            dispatch(displayFormUpdate(true))
+          }}
+        >
+          Ajouter un space
+        </button>
+      </Box>
     </>
   )
 }
