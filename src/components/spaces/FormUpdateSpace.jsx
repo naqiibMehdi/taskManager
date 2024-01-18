@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { displayFormUpdate, updateSpace } from "../redux/tables/spaceSlice"
+import { displayFormUpdate, updateSpace } from "../../redux/tables/spaceSlice"
 import { MuiColorInput } from "mui-color-input"
 
 function FormUpdateSpace() {

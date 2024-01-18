@@ -5,7 +5,7 @@ import {
   addSpacesToDelete,
   displayFormUpdate,
   getSpace,
-} from "../redux/tables/spaceSlice"
+} from "../../redux/tables/spaceSlice"
 
 export default function SpaceItem({ space }) {
   const dispatch = useDispatch()

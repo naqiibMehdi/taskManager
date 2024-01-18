@@ -1,8 +1,8 @@
-import Tables from "./components/Tables"
+import Tables from "./components/tables/Tables"
 import { Route, Routes } from "react-router-dom"
 import HomePage from "./components/HomePage"
 import Login from "./components/Login"
-import SpaceList from "./components/SpaceList"
+import SpaceList from "./components/spaces/SpaceList"
 import "./App.css"
 
 function App() {

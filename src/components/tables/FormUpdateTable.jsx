@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { updateTask } from "../redux/tables/tasksSlice"
+import { updateTable } from "../../redux/tables/tablesSlice"
 
-function FormUpdateTask({ setDisplayUpdateFormTask }) {
-  const [titleTask, setTitleTask] = useState("")
+function FormUpdateTable({ setDisplayFormUpdateTable }) {
+  const [title, setTitleTable] = useState("")
   const dispatch = useDispatch()
-  const task = useSelector((state) => state.tasks.task)
+  const table = useSelector((state) => state.tables.table)
   return (
     <>
       <div className="popup-overlay">
@@ -14,21 +14,20 @@ function FormUpdateTask({ setDisplayUpdateFormTask }) {
             className="w-100 p-0"
             onSubmit={(e) => {
               e.preventDefault()
-              // updateTask(titleTask, task.id)
-              dispatch(updateTask({ title: titleTask, id: task.id }))
-              setDisplayUpdateFormTask(false)
+              dispatch(updateTable({ title, id: table.id }))
+              setDisplayFormUpdateTable(false)
             }}
           >
             <div className="form-group">
               <label htmlFor="titre" className="mb-2">
-                Tâche
+                Edition du titre de la Table
               </label>
               <input
                 type="text"
                 className="form-control mb-2"
                 id="titre"
-                value={titleTask || task.title}
-                onChange={(e) => setTitleTask(e.target.value)}
+                value={title || table.title}
+                onChange={(e) => setTitleTable(e.target.value)}
               />
             </div>
             <div className="d-flex gap-2">
@@ -39,7 +38,7 @@ function FormUpdateTask({ setDisplayUpdateFormTask }) {
                 className="btn btn-secondary"
                 onClick={(e) => {
                   e.preventDefault()
-                  setDisplayUpdateFormTask(false)
+                  setDisplayFormUpdateTable(false)
                 }}
               >
                 Annuler
@@ -52,4 +51,4 @@ function FormUpdateTask({ setDisplayUpdateFormTask }) {
   )
 }
 
-export default FormUpdateTask
+export default FormUpdateTable

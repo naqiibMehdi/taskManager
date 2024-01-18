@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { deleteTask, getTask } from "../redux/tables/tasksSlice"
+import { deleteTask, getTask } from "../../redux/tables/tasksSlice"
 import { useDispatch } from "react-redux"
 
 function Task({ task, setDisplayUpdateFormTask }) {

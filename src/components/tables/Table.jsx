@@ -1,8 +1,8 @@
 import React from "react"
-import Task from "./Task"
+import Task from "../tasks/Task"
 import { useDispatch, useSelector } from "react-redux"
-import { moveTask } from "../redux/tables/tasksSlice"
-import { getOneTable } from "../redux/tables/tablesSlice"
+import { moveTask } from "../../redux/tables/tasksSlice"
+import { getOneTable } from "../../redux/tables/tablesSlice"
 
 function Table({
   table,

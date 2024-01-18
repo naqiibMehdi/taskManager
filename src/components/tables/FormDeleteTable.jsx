@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteTable } from "../redux/tables/tablesSlice"
+import { deleteTable } from "../../redux/tables/tablesSlice"
 
 function FormDeleteTable({ setDisplayDeleteFormTable }) {
   const [id, setId] = useState("0")

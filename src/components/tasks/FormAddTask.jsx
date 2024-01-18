@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { addTask } from "../redux/tables/tasksSlice"
+import { addTask } from "../../redux/tables/tasksSlice"
 
 function FormAddTask({ setDisplayAddFormTask }) {
   const [task, setTask] = useState("")

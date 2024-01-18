@@ -1,11 +1,12 @@
 import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { updateTable } from "../redux/tables/tablesSlice"
+import { useDispatch } from "react-redux"
+import { addTable } from "../../redux/tables/tablesSlice"
+import { useParams } from "react-router-dom"
 
-function FormUpdateTable({ setDisplayFormUpdateTable }) {
-  const [title, setTitleTable] = useState("")
+function FormAddTable({ setDisplayAddFormTable }) {
+  const [title, setTitle] = useState("")
   const dispatch = useDispatch()
-  const table = useSelector((state) => state.tables.table)
+  const params = useParams()
   return (
     <>
       <div className="popup-overlay">
@@ -14,32 +15,32 @@ function FormUpdateTable({ setDisplayFormUpdateTable }) {
             className="w-100 p-0"
             onSubmit={(e) => {
               e.preventDefault()
-              dispatch(updateTable({ title, id: table.id }))
-              setDisplayFormUpdateTable(false)
+              if (title.length === 0) {
+                alert("Vous devez saisir un titre pour ajouter un tableau")
+                return
+              }
+              dispatch(addTable({ title, spaceId: params.id }))
+              setTitle("")
+              setDisplayAddFormTable(false)
             }}
           >
             <div className="form-group">
               <label htmlFor="titre" className="mb-2">
-                Edition du titre de la Table
+                Saisir un titre
               </label>
               <input
                 type="text"
                 className="form-control mb-2"
                 id="titre"
-                value={title || table.title}
-                onChange={(e) => setTitleTable(e.target.value)}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
             <div className="d-flex gap-2">
-              <button className="btn btn-primary" type="submit">
-                Valider
-              </button>
+              <button className="btn btn-primary">Ajouter</button>
               <button
                 className="btn btn-secondary"
-                onClick={(e) => {
-                  e.preventDefault()
-                  setDisplayFormUpdateTable(false)
-                }}
+                onClick={() => setDisplayAddFormTable(false)}
               >
                 Annuler
               </button>
@@ -51,4 +52,4 @@ function FormUpdateTable({ setDisplayFormUpdateTable }) {
   )
 }
 
-export default FormUpdateTable
+export default FormAddTable

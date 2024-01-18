@@ -2,8 +2,8 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import SpaceItem from "./SpaceItem"
 import FormUpdateSpace from "./FormUpdateSpace"
-import { deleteSpaces } from "../redux/tables/spaceSlice"
-import { deleteTablesWithSpaces } from "../redux/tables/tablesSlice"
+import { deleteSpaces } from "../../redux/tables/spaceSlice"
+import { deleteTablesWithSpaces } from "../../redux/tables/tablesSlice"
 
 export default function SpaceList() {
   const spaces = useSelector((state) => state.spaces.spaces)
