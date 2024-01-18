@@ -6,11 +6,12 @@ import {
   displayFormUpdate,
   updateSpace,
 } from "../../redux/tables/spaceSlice"
+import { displayMessage } from "../../redux/tables/messageSlice"
 import { MuiColorInput } from "mui-color-input"
 
 function FormUpdateSpace() {
   const [title, setTitleSpace] = useState("")
-  const [color, setColor] = useState("#0065ff")
+  const [color, setColor] = useState("")
   const dispatch = useDispatch()
   const space = useSelector((state) => state.spaces.space)
   const addOrEdit = useSelector((state) => state.spaces.addOrEdit)
@@ -30,7 +31,13 @@ function FormUpdateSpace() {
                 dispatch(
                   addSpace({
                     title: !title ? "default title" : title,
-                    bgcolor: color,
+                    bgcolor: color ? color : "#0065ff",
+                  })
+                )
+                dispatch(
+                  displayMessage({
+                    texte: "space ajouté avec succès",
+                    typeMessage: "success",
                   })
                 )
               } else {
@@ -39,6 +46,12 @@ function FormUpdateSpace() {
                     id: space.id,
                     bgcolor: color === "" ? space.bgcolor : color,
                     title: title || space.title,
+                  })
+                )
+                dispatch(
+                  displayMessage({
+                    texte: "space modifié avec succès",
+                    typeMessage: "success",
                   })
                 )
               }
@@ -61,7 +74,7 @@ function FormUpdateSpace() {
               />
             </div>
             <MuiColorInput
-              value={color || space.bgcolor}
+              value={addOrEdit ? color : color || space.bgcolor}
               onChange={handleChange}
             />
             <div className="d-flex gap-2 mt-3">

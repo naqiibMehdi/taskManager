@@ -19,15 +19,10 @@ export default function SpaceList() {
   return (
     <>
       {displayForm && <FormUpdateSpace />}
-      <Box sx={{ margin: "20px auto", width: "85%" }}>
-        <Grid
-          container
-          spacing={2}
-          columns={{ xl: 4, lg: 4, md: 2, sm: 2, xs: 1 }}
-          sx={{ marginBlockEnd: "5px" }}
-        >
+      <Box sx={{ margin: "80px auto", width: "85%" }}>
+        <Grid container spacing={2} sx={{ marginBlockEnd: "5px" }}>
           {spaces.map((space) => (
-            <Grid xl={1} lg={1} md={1} sm={1} xs={1} key={space.id}>
+            <Grid xl={4} lg={4} md={4} sm={6} xs={12} key={space.id}>
               <SpaceItem space={space} />
             </Grid>
           ))}
