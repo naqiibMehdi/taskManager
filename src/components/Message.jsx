@@ -14,13 +14,13 @@ export default function Message() {
       <Snackbar
         open={viewMessage}
         autoHideDuration={6000}
-        onClose={viewMessage}
+        onClose={() => store.dispatch(hideMessage())}
       >
         <Alert
-          onClose={() => store.dispatch(hideMessage())}
           severity="success"
           variant="filled"
           sx={{ width: "100%" }}
+          onClose={() => store.dispatch(hideMessage())}
         >
           {texte}
         </Alert>

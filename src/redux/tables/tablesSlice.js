@@ -11,6 +11,7 @@ const TablesSlice = createSlice({
       { id: 4, title: "en cours", order: 4, spaceId: 4 },
     ],
     table: {},
+    displayFormTable: null,
   },
   reducers: {
     addTable: (state, { payload }) => {
@@ -45,6 +46,9 @@ const TablesSlice = createSlice({
       })
       state.tables = newTables
     },
+    setDisplayFormTable: (state, { payload }) => {
+      state.displayFormTable = payload
+    },
   },
 })
 
@@ -54,6 +58,7 @@ export const {
   deleteTable,
   getOneTable,
   deleteTablesWithSpaces,
+  setDisplayFormTable,
 } = TablesSlice.actions
 
 export default TablesSlice

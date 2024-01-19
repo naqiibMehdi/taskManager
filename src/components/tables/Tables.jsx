@@ -6,14 +6,15 @@ import { Link, useParams } from "react-router-dom"
 import FormAddTask from "../tasks/FormAddTask"
 import FormUpdateTask from "../tasks/FormUpdateTask"
 import FormUpdateTable from "./FormUpdateTable"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { setDisplayFormTable } from "../../redux/tables/tablesSlice"
 
 function Tables() {
   const params = useParams()
 
-  const listTables = useSelector((state) => state.tables.tables)
+  const { tables, displayFormTable } = useSelector((state) => state.tables)
+  const dispatch = useDispatch()
 
-  const [displayAddFormTable, setDisplayAddFormTable] = useState(false)
   const [displayDeleteFormTable, setDisplayDeleteFormTable] = useState(false)
   const [displayAddFormTask, setDisplayAddFormTask] = useState(false)
   const [displayUpdateFormTask, setDisplayUpdateFormTask] = useState(false)
@@ -55,7 +56,7 @@ function Tables() {
       <div className="container mx-auto my-4 w-80 d-flex align-items-start justify-content-center column-gap-5">
         <button
           className="btn btn-primary"
-          onClick={() => setDisplayAddFormTable(true)}
+          onClick={() => dispatch(setDisplayFormTable(true))}
         >
           Ajouter un tableau
         </button>
@@ -72,9 +73,7 @@ function Tables() {
           Ajouter une tâche
         </button>
 
-        {displayAddFormTable && (
-          <FormAddTable setDisplayAddFormTable={setDisplayAddFormTable} />
-        )}
+        {displayFormTable && <FormAddTable />}
         {displayAddFormTask && (
           <FormAddTask setDisplayAddFormTask={setDisplayAddFormTask} />
         )}
@@ -94,7 +93,7 @@ function Tables() {
         )}
       </div>
       <div className="tableau">
-        {[...listTables]
+        {[...tables]
           .filter((t) => t.spaceId.toString() === params.id.toString())
           .sort((a, b) => (a.order >= b.order ? 1 : -1))
           .map((tableau) => {
