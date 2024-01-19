@@ -5,7 +5,6 @@ import Login from "./components/Login"
 import SpaceList from "./components/spaces/SpaceList"
 import Message from "./components/Message"
 import "./App.css"
-import { useSelector } from "react-redux"
 
 function App() {
   return (
