@@ -12,10 +12,15 @@ import ListItemButton from "@mui/material/ListItemButton"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 const drawerWidth = 240
 
 export default function HomePage() {
+  const { tables } = useSelector((state) => state.tables)
+  const { spaces } = useSelector((state) => state.spaces)
+  const { tasks } = useSelector((state) => state.tasks)
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -68,16 +73,16 @@ export default function HomePage() {
       >
         <Toolbar />
         <Typography component={"div"}>
-          <h4>Nombre de spaces</h4>
-          <p>3 spaces</p>
+          <h4>Liste de spaces</h4>
+          <p>{spaces.length} spaces</p>
         </Typography>
         <Typography component={"div"}>
-          <h4>Nombre de spaces</h4>
-          <p>3 spaces</p>
+          <h4>Nombre de tableaux</h4>
+          <p>{tables.length} tableaux</p>
         </Typography>
         <Typography component={"div"}>
-          <h4>Nombre de spaces</h4>
-          <p>3 spaces</p>
+          <h4>Nombre de tâches</h4>
+          <p>{tasks.length} tâches</p>
         </Typography>
       </Box>
     </Box>
