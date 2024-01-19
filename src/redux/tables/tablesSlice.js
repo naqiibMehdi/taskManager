@@ -11,7 +11,11 @@ const TablesSlice = createSlice({
       { id: 4, title: "en cours", order: 4, spaceId: 4 },
     ],
     table: {},
-    displayFormTable: null,
+    displayFormTable: {
+      add: null,
+      update: null,
+      delete: null,
+    },
   },
   reducers: {
     addTable: (state, { payload }) => {
@@ -47,7 +51,17 @@ const TablesSlice = createSlice({
       state.tables = newTables
     },
     setDisplayFormTable: (state, { payload }) => {
-      state.displayFormTable = payload
+      switch (payload.type) {
+        case "add":
+          state.displayFormTable.add = payload.boolean
+          break
+        case "update":
+          state.displayFormTable.update = payload.boolean
+          break
+        case "delete":
+          state.displayFormTable.delete = payload.boolean
+          break
+      }
     },
   },
 })

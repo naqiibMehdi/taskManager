@@ -27,8 +27,10 @@ function FormAddTable() {
   return (
     <>
       <Modal
-        open={displayFormTable}
-        onClose={() => dispatch(setDisplayFormTable(false))}
+        open={displayFormTable.add}
+        onClose={() =>
+          dispatch(setDisplayFormTable({ type: "add", boolean: false }))
+        }
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -43,7 +45,7 @@ function FormAddTable() {
                   return
                 }
                 dispatch(addTable({ title, spaceId: params.id }))
-                dispatch(setDisplayFormTable(false))
+                dispatch(setDisplayFormTable({ type: "add", boolean: false }))
                 setTitle("")
               }}
             >
@@ -63,7 +65,11 @@ function FormAddTable() {
                 <button className="btn btn-primary">Ajouter</button>
                 <button
                   className="btn btn-secondary"
-                  onClick={() => dispatch(setDisplayFormTable(false))}
+                  onClick={() =>
+                    dispatch(
+                      setDisplayFormTable({ type: "add", boolean: false })
+                    )
+                  }
                 >
                   Annuler
                 </button>

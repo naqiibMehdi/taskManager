@@ -15,7 +15,6 @@ function Tables() {
   const { tables, displayFormTable } = useSelector((state) => state.tables)
   const dispatch = useDispatch()
 
-  const [displayDeleteFormTable, setDisplayDeleteFormTable] = useState(false)
   const [displayAddFormTask, setDisplayAddFormTask] = useState(false)
   const [displayUpdateFormTask, setDisplayUpdateFormTask] = useState(false)
   const [displayFormUpdateTable, setDisplayFormUpdateTable] = useState(false)
@@ -56,13 +55,17 @@ function Tables() {
       <div className="container mx-auto my-4 w-80 d-flex align-items-start justify-content-center column-gap-5">
         <button
           className="btn btn-primary"
-          onClick={() => dispatch(setDisplayFormTable(true))}
+          onClick={() =>
+            dispatch(setDisplayFormTable({ type: "add", boolean: true }))
+          }
         >
           Ajouter un tableau
         </button>
         <button
           className="btn btn-danger"
-          onClick={() => setDisplayDeleteFormTable(true)}
+          onClick={() =>
+            dispatch(setDisplayFormTable({ type: "update", boolean: true }))
+          }
         >
           Supprimer un tableau
         </button>
@@ -73,15 +76,11 @@ function Tables() {
           Ajouter une tâche
         </button>
 
-        {displayFormTable && <FormAddTable />}
+        {displayFormTable.add && <FormAddTable />}
         {displayAddFormTask && (
           <FormAddTask setDisplayAddFormTask={setDisplayAddFormTask} />
         )}
-        {displayDeleteFormTable && (
-          <FormDeleteTable
-            setDisplayDeleteFormTable={setDisplayDeleteFormTable}
-          />
-        )}
+        {displayFormTable.update && <FormDeleteTable />}
         {displayUpdateFormTask && (
           <FormUpdateTask setDisplayUpdateFormTask={setDisplayUpdateFormTask} />
         )}
