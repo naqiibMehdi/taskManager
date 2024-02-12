@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 function Login() {
@@ -7,11 +7,18 @@ function Login() {
   const [error, setError] = useState(false)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    if (sessionStorage.getItem("connected") === "true") {
+      navigate("/spaces")
+    }
+  }, [])
+
   const handelClick = (e) => {
     e.preventDefault()
     if (login === "cloudcampus" && pwd === "0000") {
       setError(false)
-      navigate("/tasklist")
+      sessionStorage.setItem("connected", true)
+      navigate("/spaces")
       return
     }
     setError(true)
