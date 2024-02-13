@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { v4 as uuidv4 } from "uuid"
+import { addTaskDB, deleteTaskDB, updateTaskDB } from "../../utils/TaskService"
 
 const TasksSlice = createSlice({
   name: "tasks",
@@ -12,17 +13,21 @@ const TasksSlice = createSlice({
       state.tasks = payload
     },
     addTask: (state, { payload }) => {
-      state.tasks.push({
+      let newTask = {
         id: uuidv4(),
         title: payload.title,
         tableId: payload.tableId,
-      })
+      }
+      state.tasks.push(newTask)
+      addTaskDB(newTask)
     },
     updateTask: (state, { payload }) => {
       const indextask = state.tasks.findIndex((t) => t.id === payload.id)
       state.tasks[indextask].title = payload.title
+      updateTaskDB({ ...state.tasks[indextask] })
     },
     deleteTask: (state, { payload }) => {
+      deleteTaskDB(payload)
       return state.tasks.filter((task) => task.id !== payload)
     },
     moveTask: (state, { payload }) => {

@@ -5,20 +5,6 @@ import { useDispatch } from "react-redux"
 function Task({ task, setDisplayUpdateFormTask }) {
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    const request = indexedDB.open("task-managerDB", 1)
-
-    request.onsuccess = (e) => {
-      const db = e.target.result
-
-      const tasksTransaction = db.transaction(["tasks"], "readonly")
-      const taskStore = tasksTransaction.objectStore("tasks").getAll()
-
-      taskStore.onsuccess = (e) => {
-        dispatch(setTasks(e.target.result))
-      }
-    }
-  }, [])
   return (
     <div
       style={{

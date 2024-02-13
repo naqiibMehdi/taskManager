@@ -1,7 +1,7 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Task from "../tasks/Task"
 import { useDispatch, useSelector } from "react-redux"
-import { moveTask } from "../../redux/tables/tasksSlice"
+import { moveTask, setTasks } from "../../redux/tables/tasksSlice"
 import { getOneTable } from "../../redux/tables/tablesSlice"
 
 function Table({
@@ -12,6 +12,23 @@ function Table({
 }) {
   const tasks = useSelector((state) => state.tasks.tasks)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    const request = indexedDB.open("task-managerDB", 1)
+
+    request.onsuccess = (e) => {
+      const db = e.target.result
+
+      const taskStore = db
+        .transaction(["tasks"], "readonly")
+        .objectStore("tasks")
+      const allTasks = taskStore.getAll()
+
+      allTasks.onsuccess = (e) => {
+        dispatch(setTasks(e.target.result))
+      }
+    }
+  }, [])
   return (
     <>
       <div
