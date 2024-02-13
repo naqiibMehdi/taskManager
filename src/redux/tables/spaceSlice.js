@@ -2,26 +2,26 @@ import { createSlice } from "@reduxjs/toolkit"
 import { v4 as uuidv4 } from "uuid"
 
 const spaces = [
-  {
-    id: 1,
-    title: "apprentissage",
-    bgcolor: "#0065ff",
-  },
-  {
-    id: 2,
-    title: "conduite de projet",
-    bgcolor: "#0065ff",
-  },
-  {
-    id: 3,
-    title: "feu de l'action",
-    bgcolor: "#0065ff",
-  },
-  {
-    id: 4,
-    title: "InStone",
-    bgcolor: "#0065ff",
-  },
+  // {
+  //   id: 1,
+  //   title: "apprentissage",
+  //   bgcolor: "#0065ff",
+  // },
+  // {
+  //   id: 2,
+  //   title: "conduite de projet",
+  //   bgcolor: "#0065ff",
+  // },
+  // {
+  //   id: 3,
+  //   title: "feu de l'action",
+  //   bgcolor: "#0065ff",
+  // },
+  // {
+  //   id: 4,
+  //   title: "InStone",
+  //   bgcolor: "#0065ff",
+  // },
 ]
 
 const SpaceSlice = createSlice({
@@ -34,6 +34,9 @@ const SpaceSlice = createSlice({
     spacesToDelete: [],
   },
   reducers: {
+    setSpaces: (state, { payload }) => {
+      state.spaces = payload
+    },
     addSpace: (state, { payload }) => {
       state.spaces.push({
         id: uuidv4(),
@@ -83,6 +86,7 @@ export const {
   deleteSpaces,
   addForm,
   addSpace,
+  setSpaces,
 } = SpaceSlice.actions
 
 export default SpaceSlice

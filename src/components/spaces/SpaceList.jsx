@@ -8,6 +8,7 @@ import {
   addForm,
   deleteSpaces,
   displayFormUpdate,
+  setSpaces,
 } from "../../redux/tables/spaceSlice"
 import { deleteTablesWithSpaces } from "../../redux/tables/tablesSlice"
 
@@ -16,6 +17,24 @@ export default function SpaceList() {
   const displayForm = useSelector((state) => state.spaces.hideFormUpdate)
   const listSpacesToDelete = useSelector((state) => state.spaces.spacesToDelete)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    const request = indexedDB.open("task-managerDB", 1)
+
+    request.onsuccess = (e) => {
+      const db = e.target.result
+
+      const taskTransaction = db.transaction(["spaces"], "readwrite")
+
+      const spaceStore = taskTransaction.objectStore("spaces")
+      const listSpaces = spaceStore.getAll()
+
+      listSpaces.onsuccess = (e) => {
+        dispatch(setSpaces(e.target.result))
+      }
+    }
+  }, [])
+
   return (
     <>
       {displayForm && <FormUpdateSpace />}
