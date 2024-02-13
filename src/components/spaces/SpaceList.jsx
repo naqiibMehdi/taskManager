@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import SpaceItem from "./SpaceItem"
 import FormUpdateSpace from "./FormUpdateSpace"
@@ -13,6 +13,7 @@ import {
 import { deleteTablesWithSpaces } from "../../redux/tables/tablesSlice"
 
 export default function SpaceList() {
+  const [db, setDb] = useState(null)
   const spaces = useSelector((state) => state.spaces.spaces)
   const displayForm = useSelector((state) => state.spaces.hideFormUpdate)
   const listSpacesToDelete = useSelector((state) => state.spaces.spacesToDelete)
@@ -22,11 +23,12 @@ export default function SpaceList() {
     const request = indexedDB.open("task-managerDB", 1)
 
     request.onsuccess = (e) => {
+      setDb(e.target.result)
       const db = e.target.result
 
-      const taskTransaction = db.transaction(["spaces"], "readonly")
+      const spaceTransaction = db.transaction(["spaces"], "readonly")
 
-      const spaceStore = taskTransaction.objectStore("spaces")
+      const spaceStore = spaceTransaction.objectStore("spaces")
       const listSpaces = spaceStore.getAll()
 
       listSpaces.onsuccess = (e) => {
@@ -37,7 +39,7 @@ export default function SpaceList() {
 
   return (
     <>
-      {displayForm && <FormUpdateSpace />}
+      {displayForm && <FormUpdateSpace db={db} />}
       <Box sx={{ margin: "80px auto", width: "85%" }}>
         <Grid container spacing={2} sx={{ marginBlockEnd: "5px" }}>
           {spaces.map((space) => (

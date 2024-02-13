@@ -39,7 +39,7 @@ const SpaceSlice = createSlice({
     },
     addSpace: (state, { payload }) => {
       state.spaces.push({
-        id: uuidv4(),
+        id: payload.id,
         title: payload.title,
         bgcolor: payload.bgcolor,
       })

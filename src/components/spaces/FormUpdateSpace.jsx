@@ -10,8 +10,9 @@ import { displayMessage } from "../../redux/tables/messageSlice"
 import { MuiColorInput } from "mui-color-input"
 import Box from "@mui/material/Box"
 import Modal from "@mui/material/Modal"
+import { v4 as uuidv4 } from "uuid"
 
-function FormUpdateSpace() {
+function FormUpdateSpace({ db }) {
   const [title, setTitleSpace] = useState("")
   const [color, setColor] = useState("")
   const dispatch = useDispatch()
@@ -53,10 +54,22 @@ function FormUpdateSpace() {
             <form
               className="w-100 p-0"
               onSubmit={(e) => {
+                let id = uuidv4()
                 e.preventDefault()
+                const spaceStore = db
+                  .transaction(["spaces"], "readwrite")
+                  .objectStore("spaces")
+
                 if (addOrEdit) {
+                  spaceStore.add({
+                    id,
+                    title: !title ? "default title" : title,
+                    bgcolor: color ? color : "#0065ff",
+                  })
+
                   dispatch(
                     addSpace({
+                      id,
                       title: !title ? "default title" : title,
                       bgcolor: color ? color : "#0065ff",
                     })
@@ -68,6 +81,12 @@ function FormUpdateSpace() {
                     })
                   )
                 } else {
+                  spaceStore.put({
+                    id: space.id,
+                    bgcolor: color === "" ? space.bgcolor : color,
+                    title: title || space.title,
+                  })
+
                   dispatch(
                     updateSpace({
                       id: space.id,
