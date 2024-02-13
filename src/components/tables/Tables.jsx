@@ -35,7 +35,7 @@ function Tables() {
         dispatch(setTables(e.target.result))
       }
     }
-  })
+  }, [])
 
   const moveTable = (idDrag, idDrop, orderDrag, orderDrop) => {
     const tablesDragDrop = [...titles]
@@ -82,7 +82,7 @@ function Tables() {
         <button
           className="btn btn-danger"
           onClick={() =>
-            dispatch(setDisplayFormTable({ type: "update", boolean: true }))
+            dispatch(setDisplayFormTable({ type: "delete", boolean: true }))
           }
         >
           Supprimer un tableau

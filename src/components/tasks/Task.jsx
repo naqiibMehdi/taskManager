@@ -18,7 +18,7 @@ function Task({ task, setDisplayUpdateFormTask }) {
         dispatch(setTasks(e.target.result))
       }
     }
-  })
+  }, [])
   return (
     <div
       style={{

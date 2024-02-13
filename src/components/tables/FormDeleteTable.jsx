@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import {
   deleteTable,
@@ -9,8 +9,17 @@ import Modal from "@mui/material/Modal"
 
 function FormDeleteTable() {
   const [id, setId] = useState("0")
+  const [db, setDB] = useState(null)
   const dispatch = useDispatch()
   const { tables, displayFormTable } = useSelector((state) => state.tables)
+
+  useEffect(() => {
+    const request = indexedDB.open("task-managerDB", 1)
+
+    request.onsuccess = (e) => {
+      setDB(e.target.result)
+    }
+  }, [])
 
   const style = {
     position: "fixed",
@@ -28,9 +37,9 @@ function FormDeleteTable() {
   return (
     <>
       <Modal
-        open={displayFormTable.update}
+        open={displayFormTable.delete}
         onClose={() =>
-          dispatch(setDisplayFormTable({ type: "update", boolean: false }))
+          dispatch(setDisplayFormTable({ type: "delete", boolean: false }))
         }
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -61,10 +70,14 @@ function FormDeleteTable() {
                 disabled={id === "0" ? true : false}
                 onClick={(e) => {
                   e.preventDefault()
+                  const tableStore = db
+                    .transaction(["tables"], "readwrite")
+                    .objectStore("tables")
+                  tableStore.delete(id)
                   dispatch(deleteTable(id))
                   setId("0")
                   dispatch(
-                    setDisplayFormTable({ type: "update", boolean: false })
+                    setDisplayFormTable({ type: "delete", boolean: false })
                   )
                 }}
               >
@@ -75,7 +88,7 @@ function FormDeleteTable() {
                 onClick={(e) => {
                   e.preventDefault()
                   dispatch(
-                    setDisplayFormTable({ type: "update", boolean: false })
+                    setDisplayFormTable({ type: "delete", boolean: false })
                   )
                 }}
               >
