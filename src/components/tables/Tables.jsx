@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Table from "./Table"
 import FormAddTable from "./FormAddTable"
 import FormDeleteTable from "./FormDeleteTable"
@@ -7,7 +7,7 @@ import FormAddTask from "../tasks/FormAddTask"
 import FormUpdateTask from "../tasks/FormUpdateTask"
 import FormUpdateTable from "./FormUpdateTable"
 import { useDispatch, useSelector } from "react-redux"
-import { setDisplayFormTable } from "../../redux/tables/tablesSlice"
+import { setDisplayFormTable, setTables } from "../../redux/tables/tablesSlice"
 
 function Tables() {
   const params = useParams()
@@ -18,6 +18,22 @@ function Tables() {
   const [displayAddFormTask, setDisplayAddFormTask] = useState(false)
   const [displayUpdateFormTask, setDisplayUpdateFormTask] = useState(false)
   const [displayFormUpdateTable, setDisplayFormUpdateTable] = useState(false)
+
+  useEffect(() => {
+    const request = indexedDB.open("task-managerDB", 1)
+
+    request.onsuccess = (e) => {
+      const db = e.target.result
+
+      const tableTransaction = db.transaction(["tables"], "readonly")
+      const tableStore = tableTransaction.objectStore("tables")
+      const listTables = tableStore.getAll()
+
+      listTables.onsuccess = (e) => {
+        dispatch(setTables(e.target.result))
+      }
+    }
+  })
 
   const moveTable = (idDrag, idDrop, orderDrag, orderDrop) => {
     const tablesDragDrop = [...titles]

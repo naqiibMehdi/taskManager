@@ -24,7 +24,7 @@ export default function SpaceList() {
     request.onsuccess = (e) => {
       const db = e.target.result
 
-      const taskTransaction = db.transaction(["spaces"], "readwrite")
+      const taskTransaction = db.transaction(["spaces"], "readonly")
 
       const spaceStore = taskTransaction.objectStore("spaces")
       const listSpaces = spaceStore.getAll()

@@ -8,29 +8,6 @@ import "./App.css"
 import { useEffect } from "react"
 
 function App() {
-  useEffect(() => {
-    const request = indexedDB.open("task-managerDB", 1)
-
-    request.onupgradeneeded = (e) => {
-      const db = e.target.result
-
-      db.createObjectStore("spaces", {
-        keyPath: "id",
-        autoIncrement: true,
-      })
-
-      db.createObjectStore("tables", {
-        keyPath: "id",
-        autoIncrement: true,
-      })
-
-      db.createObjectStore("tasks", {
-        keyPath: "id",
-        autoIncrement: true,
-      })
-    }
-  }, [])
-
   return (
     <>
       <Routes>

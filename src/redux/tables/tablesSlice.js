@@ -5,10 +5,10 @@ const TablesSlice = createSlice({
   name: "tables",
   initialState: {
     tables: [
-      { id: 1, title: "projet ressource", order: 1, spaceId: 1 },
-      { id: 2, title: "Sujet de la prochaine réunion", order: 2, spaceId: 2 },
-      { id: 3, title: "a faire", order: 3, spaceId: 3 },
-      { id: 4, title: "en cours", order: 4, spaceId: 4 },
+      //   { id: 1, title: "projet ressource", order: 1, spaceId: 1 },
+      //   { id: 2, title: "Sujet de la prochaine réunion", order: 2, spaceId: 2 },
+      //   { id: 3, title: "a faire", order: 3, spaceId: 3 },
+      //   { id: 4, title: "en cours", order: 4, spaceId: 4 },
     ],
     table: {},
     displayFormTable: {
@@ -18,6 +18,9 @@ const TablesSlice = createSlice({
     },
   },
   reducers: {
+    setTables: (state, { payload }) => {
+      state.tables = payload
+    },
     addTable: (state, { payload }) => {
       state.tables.push({
         id: uuidv4(),
@@ -73,6 +76,7 @@ export const {
   getOneTable,
   deleteTablesWithSpaces,
   setDisplayFormTable,
+  setTables,
 } = TablesSlice.actions
 
 export default TablesSlice
