@@ -23,7 +23,7 @@ const TablesSlice = createSlice({
     },
     addTable: (state, { payload }) => {
       state.tables.push({
-        id: uuidv4(),
+        id: payload.id,
         title: payload.title,
         order: state.tables.length + 1,
         spaceId: payload.spaceId,

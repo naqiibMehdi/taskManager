@@ -55,6 +55,27 @@ export default function SpaceList() {
           onClick={() => {
             dispatch(deleteTablesWithSpaces(listSpacesToDelete))
             dispatch(deleteSpaces(listSpacesToDelete))
+
+            const spaceStore = db
+              .transaction(["spaces"], "readwrite")
+              .objectStore("spaces")
+
+            const tableStore = db
+              .transaction(["tables"], "readwrite")
+              .objectStore("tables")
+
+            const listTables = tableStore.getAll()
+
+            for (let space of listSpacesToDelete) {
+              listTables.onsuccess = (e) => {
+                for (let table of e.target.result) {
+                  if (space === table.spaceId) {
+                    tableStore.delete(table.id)
+                  }
+                }
+              }
+              spaceStore.delete(space)
+            }
           }}
         >
           Supprimer en masse

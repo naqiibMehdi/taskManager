@@ -4,8 +4,9 @@ import { addTable, setDisplayFormTable } from "../../redux/tables/tablesSlice"
 import { useParams } from "react-router-dom"
 import Box from "@mui/material/Box"
 import Modal from "@mui/material/Modal"
+import { v4 as uuidv4 } from "uuid"
 
-function FormAddTable() {
+function FormAddTable({ db }) {
   const [title, setTitle] = useState("")
   const dispatch = useDispatch()
   const displayFormTable = useSelector((state) => state.tables.displayFormTable)
@@ -40,12 +41,18 @@ function FormAddTable() {
               className="w-100 p-0"
               onSubmit={(e) => {
                 e.preventDefault()
+                let idTable = uuidv4()
                 if (title.length === 0) {
                   alert("Vous devez saisir un titre pour ajouter un tableau")
                   return
                 }
-                dispatch(addTable({ title, spaceId: params.id }))
+
+                dispatch(addTable({ id: idTable, title, spaceId: params.id }))
                 dispatch(setDisplayFormTable({ type: "add", boolean: false }))
+                const tableStore = db
+                  .transaction(["tables"], "readwrite")
+                  .objectStore("tables")
+                tableStore.add({ id: idTable, title, spaceId: params.id })
                 setTitle("")
               }}
             >

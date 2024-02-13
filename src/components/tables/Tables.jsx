@@ -18,11 +18,13 @@ function Tables() {
   const [displayAddFormTask, setDisplayAddFormTask] = useState(false)
   const [displayUpdateFormTask, setDisplayUpdateFormTask] = useState(false)
   const [displayFormUpdateTable, setDisplayFormUpdateTable] = useState(false)
+  const [db, setDb] = useState(null)
 
   useEffect(() => {
     const request = indexedDB.open("task-managerDB", 1)
 
     request.onsuccess = (e) => {
+      setDb(e.target.result)
       const db = e.target.result
 
       const tableTransaction = db.transaction(["tables"], "readonly")
@@ -92,7 +94,7 @@ function Tables() {
           Ajouter une tâche
         </button>
 
-        {displayFormTable.add && <FormAddTable />}
+        {displayFormTable.add && <FormAddTable db={db} />}
         {displayAddFormTask && (
           <FormAddTask setDisplayAddFormTask={setDisplayAddFormTask} />
         )}
