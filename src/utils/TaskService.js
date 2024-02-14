@@ -49,11 +49,11 @@ export const deleteTaskDB = (taskId) => {
     const request = store.delete(taskId)
 
     request.onsuccess = () => {
-      console.log("tâche modifiée avec succès")
+      console.log("tâche supprimée avec succès")
     }
 
     request.onerror = () => {
-      console.log("erreur lors de la modification de la tâche")
+      console.log("erreur lors de la suppression de la tâche")
     }
   }
 }
