@@ -10,7 +10,7 @@ import { displayMessage } from "../../redux/tables/messageSlice"
 import { MuiColorInput } from "mui-color-input"
 import Box from "@mui/material/Box"
 import Modal from "@mui/material/Modal"
-import { postSpacesApi } from "../firebase/SpaceAPI"
+import { postSpacesApi, putSpacesApi } from "../firebase/SpaceAPI"
 
 function FormUpdateSpace() {
   const [title, setTitleSpace] = useState("")
@@ -76,6 +76,12 @@ function FormUpdateSpace() {
                     })
                   )
                 } else {
+                  await putSpacesApi(
+                    space.id,
+                    title || space.title,
+                    color === "" ? space.bgcolor : color
+                  )
+
                   dispatch(
                     updateSpace({
                       id: space.id,

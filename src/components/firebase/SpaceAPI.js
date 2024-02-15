@@ -47,6 +47,32 @@ export const postSpacesApi = async (title, bgcolor) => {
   }
 }
 
+export const putSpacesApi = async (spaceId, title, bgcolor) => {
+  try {
+    let bodyPutSpace = {
+      fields: {
+        title: {
+          stringValue: title,
+        },
+        bgcolor: {
+          stringValue: bgcolor,
+        },
+      },
+    }
+
+    const url_put_spaces = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/spaces/${spaceId}?key=${firebaseConfig.apiKey}`
+
+    const response = await fetch(url_put_spaces, {
+      method: "PATCH",
+      body: JSON.stringify(bodyPutSpace),
+    })
+    const data = await response.json()
+    console.log(data)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const deleteSpacesApi = async (listSpaceId) => {
   try {
     for (let spaceId of listSpaceId) {
