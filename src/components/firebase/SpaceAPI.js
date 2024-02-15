@@ -41,9 +41,22 @@ export const postSpacesApi = async (title, bgcolor) => {
       body: JSON.stringify(bodyPostSpace),
     })
     const data = await response.json()
-
-    console.log(data)
     return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const deleteSpacesApi = async (listSpaceId) => {
+  try {
+    for (let spaceId of listSpaceId) {
+      const url_delete_spaces = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/spaces/${spaceId}?key=${firebaseConfig.apiKey}`
+
+      const response = await fetch(url_delete_spaces, {
+        method: "DELETE",
+      })
+      console.log("spaces supprimés avec succès")
+    }
   } catch (error) {
     console.log(error)
   }

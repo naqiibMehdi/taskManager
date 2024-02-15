@@ -12,7 +12,7 @@ import {
   setSpaces,
 } from "../../redux/tables/spaceSlice"
 import { deleteTablesWithSpaces } from "../../redux/tables/tablesSlice"
-import { getSpacesApi } from "../firebase/SpaceAPI"
+import { deleteSpacesApi, getSpacesApi } from "../firebase/SpaceAPI"
 
 export default function SpaceList() {
   const spaces = useSelector((state) => state.spaces.spaces)
@@ -43,30 +43,10 @@ export default function SpaceList() {
           className={
             listSpacesToDelete.length === 0 ? "d-none" : "btn btn-danger"
           }
-          onClick={() => {
+          onClick={async () => {
             dispatch(deleteTablesWithSpaces(listSpacesToDelete))
             dispatch(deleteSpaces(listSpacesToDelete))
-
-            const spaceStore = db
-              .transaction(["spaces"], "readwrite")
-              .objectStore("spaces")
-
-            const tableStore = db
-              .transaction(["tables"], "readwrite")
-              .objectStore("tables")
-
-            const listTables = tableStore.getAll()
-
-            for (let space of listSpacesToDelete) {
-              listTables.onsuccess = (e) => {
-                for (let table of e.target.result) {
-                  if (space === table.spaceId) {
-                    tableStore.delete(table.id)
-                  }
-                }
-              }
-              spaceStore.delete(space)
-            }
+            await deleteSpacesApi(listSpacesToDelete)
           }}
         >
           Supprimer en masse
