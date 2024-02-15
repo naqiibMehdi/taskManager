@@ -8,6 +8,7 @@ import FormUpdateTask from "../tasks/FormUpdateTask"
 import FormUpdateTable from "./FormUpdateTable"
 import { useDispatch, useSelector } from "react-redux"
 import { setDisplayFormTable, setTables } from "../../redux/tables/tablesSlice"
+import { getTablesApi } from "../firebase/TableAPI"
 
 function Tables() {
   const params = useParams()
@@ -21,20 +22,10 @@ function Tables() {
   const [db, setDb] = useState(null)
 
   useEffect(() => {
-    const request = indexedDB.open("task-managerDB", 1)
-
-    request.onsuccess = (e) => {
-      setDb(e.target.result)
-      const db = e.target.result
-
-      const tableTransaction = db.transaction(["tables"], "readonly")
-      const tableStore = tableTransaction.objectStore("tables")
-      const listTables = tableStore.getAll()
-
-      listTables.onsuccess = (e) => {
-        dispatch(setTables(e.target.result))
-      }
-    }
+    // const getTables = async () => {
+    //   dispatch(setTables(await getTablesApi()))
+    // }
+    // getTables()
   }, [])
 
   const moveTable = (idDrag, idDrop, orderDrag, orderDrop) => {
@@ -110,20 +101,21 @@ function Tables() {
         )}
       </div>
       <div className="tableau">
-        {[...tables]
-          .filter((t) => t.spaceId.toString() === params.id.toString())
-          .sort((a, b) => (a.order >= b.order ? 1 : -1))
-          .map((tableau) => {
-            return (
-              <Table
-                table={tableau}
-                key={tableau.id}
-                setDisplayUpdateFormTask={setDisplayUpdateFormTask}
-                setDisplayFormUpdateTable={setDisplayFormUpdateTable}
-                moveTable={moveTable}
-              />
-            )
-          })}
+        {tables &&
+          [...tables]
+            .filter((t) => t.spaceId.toString() === params.id.toString())
+            .sort((a, b) => (a.order >= b.order ? 1 : -1))
+            .map((tableau) => {
+              return (
+                <Table
+                  table={tableau}
+                  key={tableau.id}
+                  setDisplayUpdateFormTask={setDisplayUpdateFormTask}
+                  setDisplayFormUpdateTable={setDisplayFormUpdateTable}
+                  moveTable={moveTable}
+                />
+              )
+            })}
       </div>
     </>
   )

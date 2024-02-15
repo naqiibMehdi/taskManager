@@ -5,11 +5,13 @@ import { useParams } from "react-router-dom"
 import Box from "@mui/material/Box"
 import Modal from "@mui/material/Modal"
 import { v4 as uuidv4 } from "uuid"
+import { postTablesApi } from "../firebase/TableAPI"
 
-function FormAddTable({ db }) {
+function FormAddTable() {
   const [title, setTitle] = useState("")
   const dispatch = useDispatch()
   const displayFormTable = useSelector((state) => state.tables.displayFormTable)
+  const tables = useSelector((state) => state.tables.tables)
   const params = useParams()
 
   const style = {
@@ -25,6 +27,19 @@ function FormAddTable({ db }) {
     alignItems: "center",
     zindex: 1000,
   }
+
+  const getOrderNewTable = (id) => {
+    let t = []
+
+    if (tables) {
+      for (let table of tables) {
+        if (table.spaceId === id) {
+          t.push(table)
+        }
+      }
+    }
+    return t.length + 1
+  }
   return (
     <>
       <Modal
@@ -39,20 +54,26 @@ function FormAddTable({ db }) {
           <div className="w-50 bg-white rounded p-3">
             <form
               className="w-100 p-0"
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault()
-                let idTable = uuidv4()
                 if (title.length === 0) {
                   alert("Vous devez saisir un titre pour ajouter un tableau")
                   return
                 }
 
-                dispatch(addTable({ id: idTable, title, spaceId: params.id }))
+                const data = await postTablesApi(
+                  title,
+                  params.id,
+                  tables === undefined ? 1 : getOrderNewTable(params.id)
+                )
+                // dispatch(
+                //   addTable({
+                //     id: 1,
+                //     title,
+                //     spaceId: params.id,
+                //   })
+                // )
                 dispatch(setDisplayFormTable({ type: "add", boolean: false }))
-                const tableStore = db
-                  .transaction(["tables"], "readwrite")
-                  .objectStore("tables")
-                tableStore.add({ id: idTable, title, spaceId: params.id })
                 setTitle("")
               }}
             >

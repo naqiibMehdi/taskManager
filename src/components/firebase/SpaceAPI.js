@@ -1,4 +1,4 @@
-import { firebaseConfig } from "../firebase/firebase"
+import { firebaseConfig } from "./firebase"
 
 const url_get_spaces = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/spaces?key=${firebaseConfig.apiKey}`
 
