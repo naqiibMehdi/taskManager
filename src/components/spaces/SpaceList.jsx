@@ -6,40 +6,31 @@ import Box from "@mui/material/Box"
 import Grid from "@mui/material/Unstable_Grid2"
 import {
   addForm,
+  addSpace,
   deleteSpaces,
   displayFormUpdate,
   setSpaces,
 } from "../../redux/tables/spaceSlice"
 import { deleteTablesWithSpaces } from "../../redux/tables/tablesSlice"
+import { getSpacesApi } from "../firebase/SpaceAPI"
 
 export default function SpaceList() {
-  const [db, setDb] = useState(null)
   const spaces = useSelector((state) => state.spaces.spaces)
   const displayForm = useSelector((state) => state.spaces.hideFormUpdate)
   const listSpacesToDelete = useSelector((state) => state.spaces.spacesToDelete)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const request = indexedDB.open("task-managerDB", 1)
-
-    request.onsuccess = (e) => {
-      setDb(e.target.result)
-      const db = e.target.result
-
-      const spaceTransaction = db.transaction(["spaces"], "readonly")
-
-      const spaceStore = spaceTransaction.objectStore("spaces")
-      const listSpaces = spaceStore.getAll()
-
-      listSpaces.onsuccess = (e) => {
-        dispatch(setSpaces(e.target.result))
-      }
+    const getSpaces = async () => {
+      dispatch(setSpaces(await getSpacesApi()))
     }
+
+    getSpaces()
   }, [])
 
   return (
     <>
-      {displayForm && <FormUpdateSpace db={db} />}
+      {displayForm && <FormUpdateSpace />}
       <Box sx={{ margin: "80px auto", width: "85%" }}>
         <Grid container spacing={2} sx={{ marginBlockEnd: "5px" }}>
           {spaces.map((space) => (

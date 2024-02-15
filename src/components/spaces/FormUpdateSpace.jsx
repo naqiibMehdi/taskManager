@@ -10,9 +10,9 @@ import { displayMessage } from "../../redux/tables/messageSlice"
 import { MuiColorInput } from "mui-color-input"
 import Box from "@mui/material/Box"
 import Modal from "@mui/material/Modal"
-import { v4 as uuidv4 } from "uuid"
+import { postSpacesApi } from "../firebase/SpaceAPI"
 
-function FormUpdateSpace({ db }) {
+function FormUpdateSpace() {
   const [title, setTitleSpace] = useState("")
   const [color, setColor] = useState("")
   const dispatch = useDispatch()
@@ -53,23 +53,18 @@ function FormUpdateSpace({ db }) {
           <div className="w-50 bg-white rounded p-3">
             <form
               className="w-100 p-0"
-              onSubmit={(e) => {
-                let id = uuidv4()
+              onSubmit={async (e) => {
                 e.preventDefault()
-                const spaceStore = db
-                  .transaction(["spaces"], "readwrite")
-                  .objectStore("spaces")
 
                 if (addOrEdit) {
-                  spaceStore.add({
-                    id,
-                    title: !title ? "default title" : title,
-                    bgcolor: color ? color : "#0065ff",
-                  })
+                  const data = await postSpacesApi(
+                    !title ? "default title" : title,
+                    color ? color : "#0065ff"
+                  )
 
                   dispatch(
                     addSpace({
-                      id,
+                      id: await data.name.split("/")[6],
                       title: !title ? "default title" : title,
                       bgcolor: color ? color : "#0065ff",
                     })
@@ -81,12 +76,6 @@ function FormUpdateSpace({ db }) {
                     })
                   )
                 } else {
-                  spaceStore.put({
-                    id: space.id,
-                    bgcolor: color === "" ? space.bgcolor : color,
-                    title: title || space.title,
-                  })
-
                   dispatch(
                     updateSpace({
                       id: space.id,
