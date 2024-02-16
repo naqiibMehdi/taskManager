@@ -26,29 +26,29 @@ export const getTasksApi = async () => {
   }
 }
 
-// export const postSpacesApi = async (title, bgcolor) => {
-//   try {
-//     let bodyPostSpace = {
-//       fields: {
-//         title: {
-//           stringValue: title,
-//         },
-//         bgcolor: {
-//           stringValue: bgcolor,
-//         },
-//       },
-//     }
+export const postTasksApi = async (title, tableId) => {
+  try {
+    let bodyPostTask = {
+      fields: {
+        title: {
+          stringValue: title,
+        },
+        tableId: {
+          stringValue: tableId,
+        },
+      },
+    }
 
-//     const response = await fetch(url_get_spaces, {
-//       method: "POST",
-//       body: JSON.stringify(bodyPostSpace),
-//     })
-//     const data = await response.json()
-//     return data
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
+    const response = await fetch(url_get_tasks, {
+      method: "POST",
+      body: JSON.stringify(bodyPostTask),
+    })
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 // export const putSpacesApi = async (spaceId, title, bgcolor) => {
 //   try {

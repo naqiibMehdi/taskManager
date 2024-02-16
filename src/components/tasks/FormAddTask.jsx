@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addTask } from "../../redux/tables/tasksSlice"
+import { postTasksApi } from "../firebase/TaskAPI"
 
 function FormAddTask({ setDisplayAddFormTask }) {
   const [task, setTask] = useState("")
@@ -12,9 +13,16 @@ function FormAddTask({ setDisplayAddFormTask }) {
       <div className="popup-overlay">
         <div className="w-50 bg-white p-3 rounded">
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault()
-              dispatch(addTask({ tableId: idTable, title: task }))
+              const data = await postTasksApi(task, idTable)
+              dispatch(
+                addTask({
+                  id: data.name.split("/")[6],
+                  tableId: idTable,
+                  title: task,
+                })
+              )
               setTask("")
               setIdTable("")
               setDisplayAddFormTask(false)

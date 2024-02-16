@@ -14,7 +14,7 @@ const TasksSlice = createSlice({
     },
     addTask: (state, { payload }) => {
       let newTask = {
-        id: uuidv4(),
+        id: payload.id,
         title: payload.title,
         tableId: payload.tableId,
       }
