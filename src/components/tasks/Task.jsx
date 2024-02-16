@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { deleteTask, getTask, setTasks } from "../../redux/tables/tasksSlice"
 import { useDispatch } from "react-redux"
+import { deleteTasksApi } from "../firebase/TaskAPI"
 
 function Task({ task, setDisplayUpdateFormTask }) {
   const dispatch = useDispatch()
@@ -32,8 +33,9 @@ function Task({ task, setDisplayUpdateFormTask }) {
         {task.title}
       </p>
       <div
-        onClick={(e) => {
+        onClick={async (e) => {
           e.stopPropagation()
+          await deleteTasksApi(task.id)
           dispatch(deleteTask(task.id))
         }}
         style={{ width: "20px", display: "flex", justifyContent: "center" }}

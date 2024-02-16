@@ -76,17 +76,15 @@ export const putTasksApi = async (taskId, title, tableId) => {
   }
 }
 
-// export const deleteSpacesApi = async (listSpaceId) => {
-//   try {
-//     for (let spaceId of listSpaceId) {
-//       const url_delete_spaces = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/spaces/${spaceId}?key=${firebaseConfig.apiKey}`
+export const deleteTasksApi = async (taskId) => {
+  try {
+    const url_delete_task = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/tasks/${taskId}?key=${firebaseConfig.apiKey}`
 
-//       const response = await fetch(url_delete_spaces, {
-//         method: "DELETE",
-//       })
-//       console.log("spaces supprimés avec succès")
-//     }
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
+    const response = await fetch(url_delete_task, {
+      method: "DELETE",
+    })
+    console.log("tache supprimée avec succès")
+  } catch (error) {
+    console.log(error)
+  }
+}

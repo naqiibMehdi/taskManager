@@ -27,8 +27,8 @@ const TasksSlice = createSlice({
       // updateTaskDB({ ...state.tasks[indextask] })
     },
     deleteTask: (state, { payload }) => {
-      deleteTaskDB(payload)
-      return state.tasks.filter((task) => task.id !== payload)
+      // deleteTaskDB(payload)
+      state.tasks = state.tasks.filter((task) => task.id !== payload)
     },
     moveTask: (state, { payload }) => {
       let idTaskDrop = payload.idTaskDrop
