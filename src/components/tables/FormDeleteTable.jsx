@@ -6,6 +6,7 @@ import {
 } from "../../redux/tables/tablesSlice"
 import Box from "@mui/material/Box"
 import Modal from "@mui/material/Modal"
+import { deleteTablesApi } from "../firebase/TableAPI"
 
 function FormDeleteTable() {
   const [id, setId] = useState("0")
@@ -68,17 +69,14 @@ function FormDeleteTable() {
               <button
                 className="btn btn-danger"
                 disabled={id === "0" ? true : false}
-                onClick={(e) => {
+                onClick={async (e) => {
                   e.preventDefault()
-                  const tableStore = db
-                    .transaction(["tables"], "readwrite")
-                    .objectStore("tables")
-                  tableStore.delete(id)
+                  await deleteTablesApi(id)
                   dispatch(deleteTable(id))
-                  setId("0")
                   dispatch(
                     setDisplayFormTable({ type: "delete", boolean: false })
                   )
+                  setId("0")
                 }}
               >
                 Supprimer

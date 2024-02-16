@@ -85,11 +85,11 @@ function Tables() {
           Ajouter une tâche
         </button>
 
-        {displayFormTable.add && <FormAddTable db={db} />}
+        {displayFormTable.add && <FormAddTable />}
         {displayAddFormTask && (
           <FormAddTask setDisplayAddFormTask={setDisplayAddFormTask} />
         )}
-        {displayFormTable.update && <FormDeleteTable />}
+        {displayFormTable.delete && <FormDeleteTable />}
         {displayUpdateFormTask && (
           <FormUpdateTask setDisplayUpdateFormTask={setDisplayUpdateFormTask} />
         )}

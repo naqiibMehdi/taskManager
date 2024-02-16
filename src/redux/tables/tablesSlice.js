@@ -36,7 +36,7 @@ const TablesSlice = createSlice({
       state.tables[indexTable].title = payload.title
     },
     deleteTable: (state, { payload }) => {
-      return state.tables.filter(
+      state.tables = state.tables.filter(
         (table) => table.id.toString() !== payload.toString()
       )
     },
