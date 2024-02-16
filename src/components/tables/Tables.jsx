@@ -22,10 +22,10 @@ function Tables() {
   const [db, setDb] = useState(null)
 
   useEffect(() => {
-    // const getTables = async () => {
-    //   dispatch(setTables(await getTablesApi()))
-    // }
-    // getTables()
+    const getTables = async () => {
+      dispatch(setTables(await getTablesApi()))
+    }
+    getTables()
   }, [])
 
   const moveTable = (idDrag, idDrop, orderDrag, orderDrop) => {

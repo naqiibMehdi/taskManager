@@ -29,16 +29,16 @@ function FormAddTable() {
   }
 
   const getOrderNewTable = (id) => {
-    let t = []
+    let t = 0
 
     if (tables) {
       for (let table of tables) {
         if (table.spaceId === id) {
-          t.push(table)
+          t++
         }
       }
     }
-    return t.length + 1
+    return t === 0 ? 1 : t + 1
   }
   return (
     <>
@@ -64,15 +64,16 @@ function FormAddTable() {
                 const data = await postTablesApi(
                   title,
                   params.id,
-                  tables === undefined ? 1 : getOrderNewTable(params.id)
+                  getOrderNewTable(params.id)
                 )
-                // dispatch(
-                //   addTable({
-                //     id: 1,
-                //     title,
-                //     spaceId: params.id,
-                //   })
-                // )
+                dispatch(
+                  addTable({
+                    id: data.name.split("/")[6],
+                    title,
+                    spaceId: params.id,
+                    order: getOrderNewTable(params.id),
+                  })
+                )
                 dispatch(setDisplayFormTable({ type: "add", boolean: false }))
                 setTitle("")
               }}

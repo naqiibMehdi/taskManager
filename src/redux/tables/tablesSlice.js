@@ -26,6 +26,7 @@ const TablesSlice = createSlice({
         id: payload.id,
         title: payload.title,
         spaceId: payload.spaceId,
+        order: payload.order,
       })
     },
     updateTable: (state, { payload }) => {

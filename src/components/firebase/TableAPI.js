@@ -20,6 +20,8 @@ export const getTablesApi = async () => {
       }
       return tempTables
     }
+
+    return []
   } catch (error) {
     console.log(error)
   }
