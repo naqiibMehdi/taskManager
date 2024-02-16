@@ -19,12 +19,12 @@ const TasksSlice = createSlice({
         tableId: payload.tableId,
       }
       state.tasks.push(newTask)
-      addTaskDB(newTask)
+      // addTaskDB(newTask)
     },
     updateTask: (state, { payload }) => {
       const indextask = state.tasks.findIndex((t) => t.id === payload.id)
       state.tasks[indextask].title = payload.title
-      updateTaskDB({ ...state.tasks[indextask] })
+      // updateTaskDB({ ...state.tasks[indextask] })
     },
     deleteTask: (state, { payload }) => {
       deleteTaskDB(payload)

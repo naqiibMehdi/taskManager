@@ -50,31 +50,31 @@ export const postTasksApi = async (title, tableId) => {
   }
 }
 
-// export const putSpacesApi = async (spaceId, title, bgcolor) => {
-//   try {
-//     let bodyPutSpace = {
-//       fields: {
-//         title: {
-//           stringValue: title,
-//         },
-//         bgcolor: {
-//           stringValue: bgcolor,
-//         },
-//       },
-//     }
+export const putTasksApi = async (taskId, title, tableId) => {
+  try {
+    let bodyPutTask = {
+      fields: {
+        title: {
+          stringValue: title,
+        },
+        tableId: {
+          stringValue: tableId,
+        },
+      },
+    }
 
-//     const url_put_spaces = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/spaces/${spaceId}?key=${firebaseConfig.apiKey}`
+    const url_put_tasks = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/tasks/${taskId}?key=${firebaseConfig.apiKey}`
 
-//     const response = await fetch(url_put_spaces, {
-//       method: "PATCH",
-//       body: JSON.stringify(bodyPutSpace),
-//     })
-//     const data = await response.json()
-//     console.log(data)
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
+    const response = await fetch(url_put_tasks, {
+      method: "PATCH",
+      body: JSON.stringify(bodyPutTask),
+    })
+    const data = await response.json()
+    console.log(data)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 // export const deleteSpacesApi = async (listSpaceId) => {
 //   try {

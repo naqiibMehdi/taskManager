@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { updateTask } from "../../redux/tables/tasksSlice"
+import { putTasksApi } from "../firebase/TaskAPI"
 
 function FormUpdateTask({ setDisplayUpdateFormTask }) {
   const [titleTask, setTitleTask] = useState("")
@@ -12,9 +13,9 @@ function FormUpdateTask({ setDisplayUpdateFormTask }) {
         <div className="w-50 bg-white rounded p-3">
           <form
             className="w-100 p-0"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault()
-              // updateTask(titleTask, task.id)
+              await putTasksApi(task.id, titleTask, task.tableId)
               dispatch(updateTask({ title: titleTask, id: task.id }))
               setDisplayUpdateFormTask(false)
             }}
